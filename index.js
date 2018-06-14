@@ -1,3 +1,3 @@
-const generater = require("./lib/generater");
+const generate = require("./lib/pipeline");
 
-generater();
+generate();
