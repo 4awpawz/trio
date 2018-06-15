@@ -17,6 +17,7 @@
     "cheerio": "^1.0.0-rc.2",
     "front-matter": "^2.3.0",
     "glob": "^7.1.2",
-    "js-beautify": "^1.7.5"
+    "js-beautify": "^1.7.5",
+    "node-sass": "^4.9.0"
   }
 }
