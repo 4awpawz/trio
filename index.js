@@ -1,3 +1,5 @@
 const generate = require("./lib/pipeline");
 
-generate();
+(async function () {
+    await generate();
+}());
