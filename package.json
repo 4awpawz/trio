@@ -21,9 +21,9 @@
   "dependencies": {
     "@4awpawz/buster": "^0.2.0",
     "cheerio": "^1.0.0-rc.2",
-    "front-matter": "^2.3.0",
     "fs-extra": "^6.0.1",
     "glob": "^7.1.2",
+    "gray-matter": "^4.0.1",
     "js-beautify": "^1.7.5",
     "node-sass": "^4.9.0"
   }
