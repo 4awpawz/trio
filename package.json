@@ -3,14 +3,19 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
-  "bin": "cli.js",
+  "bin": {
+    "dimple-ssg": "bin/cli.js",
+    "serve": "bin/serve.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "fsweb ./public && dimple-ssg"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "browser-sync": "^2.24.4",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.12.0",
