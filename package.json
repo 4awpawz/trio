@@ -1,15 +1,16 @@
 {
-  "name": "@jeffreyschwartz/dimple-ssg",
+  "name": "@4awpawz/trio",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "bin": {
-    "dimple-ssg": "bin/cli.js",
-    "serve": "bin/serve.js"
+    "trio-build": "bin/cli.js",
+    "trio-serve": "bin/serve.js",
+    "trio-watch": "bin/watch.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "fsweb ./public && dimple-ssg"
+    "serve": "fsweb ./public && trio-ssg"
   },
   "keywords": [],
   "author": "",
