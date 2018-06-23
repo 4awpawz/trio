@@ -16,5 +16,10 @@ bs.watch("public/css/*.css", function (event, file) {
 
 // Now init the Browsersync server
 bs.init({
-    server: "./public"
+    server: {
+        baseDir: "./public",
+        serveStaticOptions: {
+            extensions: ["html"]
+        }
+    }
 });
