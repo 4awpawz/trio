@@ -1,2 +1,5 @@
 #!/usr/bin/env node
-const app = require("../index");
+
+const run = require("../index");
+
+run();
