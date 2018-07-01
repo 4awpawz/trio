@@ -21,6 +21,7 @@
             "always"
         ],
         "no-console": 0,
-        "eol-last": "off"
+        "eol-last": "off",
+        "no-mixed-operators": "off"
     }
 }
