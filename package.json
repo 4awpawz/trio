@@ -6,7 +6,8 @@
   "bin": {
     "trio-build": "bin/cli.js",
     "trio-serve": "bin/serve.js",
-    "trio-watch": "bin/watch.js"
+    "trio-watch": "bin/watch.js",
+    "trio-new": "bin/new.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
