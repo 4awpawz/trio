@@ -4,10 +4,7 @@
   "description": "",
   "main": "index.js",
   "bin": {
-    "trio-build": "bin/cli.js",
-    "trio-serve": "bin/serve.js",
-    "trio-watch": "bin/watch.js",
-    "trio-new": "bin/new.js"
+    "trio": "bin/trio.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
