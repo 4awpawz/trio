@@ -82,6 +82,7 @@ if (!command.length) {
     }
 } else if (command[0] === "r" || command[0] === "release") {
     console.log("building public folder for release");
+    build({ environment: "release" });
 } else if (command[0] === "w" || command[0] === "watch") {
     console.log("launching browser and watching source folder for changes");
     watch();
