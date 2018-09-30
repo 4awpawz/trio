@@ -122,6 +122,14 @@ Its value type is either an `array of strings` or a `single string` and can be d
 
 It is used to declare one or more names of JavaScript files whose modules will be called synchronously by Trio. For more information see [JavaScript Callbacks](#javascript-callbacks).
 
+#### forTag
+
+```html
+<!--
+forTag: css
+-->
+```
+
 ## Page Fragments
 
 Page fragments, often just called fragments, can be either markdown or HTML files and must always contain [YAML front matter](https://github.com/jonschlinkert/gray-matter). They optionally may also contain markdown or HTML content.
