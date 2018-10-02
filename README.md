@@ -1,6 +1,6 @@
 # Welcome to Trio
 
-Trio is a simple to use static website generator built with Node.js. It reflects its author's desire to rely exclusively upon the three pillars of the web - `HTML`, `JavaScript` and `CSS` - along with `YAML front matter` and with the `least amount of configuration necessary`, to create static websites.
+Trio is a simple to use static website generator built with Node.js. It reflects its author's desire to rely exclusively upon the three pillars of the web - *HTML*, *JavaScript* and *CSS* - along with *YAML front matter* and with the *least amount of configuration necessary*, to create static websites.
 
 As such, Trio is somewhat opinionated but if you love working with HTML, CSS and JavaScript then you just might love creating static websites with it. 
 
@@ -62,13 +62,13 @@ Having processed all of the include files, Trio then performs the following acti
 
 ## Front Matter
 
-Trio makes extensive use of YAML front matter and defines and uses numerous front matter properties internally, such as `template`, `appendToTarget`, `title` and `callback`.
+Trio projects can make extensive use of YAML front matter to add content to and customize their web pages. Trio also predefines and reserves several front matter properties that can be used.
 
-You are free to define and use any additional properties needed to further customize your web pages as long as they do not collide with the the names of those defined and used internally by Trio.
+__!__ _You are free to define and use your own front matter properties to further customize your web pages as long as they do not collide with the the names of those predefined by Trio._
 
-__!__ _Trio uses the open and close HTML comment tags (i.e. &lt;!--, --&gt;) as YAML front matter open and close delimiters so front matter will not cause .html and .md page formatting issues._
+__!__ _Trio uses the open and close HTML comment tags (i.e. &lt;!--, --&gt;) as YAML front matter open and close delimiters, so front matter will not cause .html and .md page formatting issues._
 
-### Front Matter Properties Internally Used By Trio
+### Front Matter Properties Predefined By Trio
 
 #### template
 
@@ -78,7 +78,11 @@ template: default.html
 -->
 ```
 
-Its value type is a `string` and must be declared in every page fragment.
+value type: a `string`
+
+context: page fragments only
+
+required: yes
 
 It is used to associates a page template file with this page fragment.
 
@@ -90,7 +94,11 @@ appendToTarget: true
 -->
 ```
 
-Its value type is a `boolean` and can be decalred in includes and page fragments.
+value type: a `boolean`
+
+context: includes and page fragments
+
+required: no
 
 If set to `true` then Trio will append the include's or page fragment's content to the html tag in the page template that has the `data-trio-fragment` attribute.
 
@@ -104,7 +112,11 @@ title: About
 -->
 ```
 
-Its value type is a `string` and can be decalred only in page fragments.
+value type: a `string`
+
+context: page fragments only
+
+required: no
 
 It is used to set the title of the generated page. If it isn't provided, Trio will use the title tag in the head section of the associated page template.
 
@@ -118,9 +130,50 @@ callback:
 -->
 ```
 
-Its value type is either an `array of strings` or a `single string` and can be declared in both includes and page fragments.
+value type: an `array of strings` or a `single string`
 
-It is used to declare one or more names of JavaScript files whose modules will be called synchronously by Trio. For more information see [JavaScript Callbacks](#javascript-callbacks).
+context: includes and page fragments
+
+required: no
+
+It is used to declare one or more names of JavaScript files whose *modules* will be called synchronously by Trio. For more information see [JavaScript Callbacks](#javascript-callbacks).
+
+#### tag
+
+```html
+<!--
+tag:
+  - javascript
+  - html
+  - css
+-->
+```
+
+value type: an `array of strings` or a `single string`
+
+context: blog article page fragments only
+
+required: no
+
+It is used to assign one or more tags to this blog article. See [blog] and [tag] for more information.
+
+#### category
+
+```html
+<!--
+category:
+  - Web Development
+  - Trio
+-->
+```
+
+value type: an `array of strings` or a `single string`
+
+context: blog article page fragments only
+
+required: no
+
+It is used to assign one or more categories to this blog article. See [blog] and [category] for more information.
 
 #### forTag
 
@@ -129,6 +182,47 @@ It is used to declare one or more names of JavaScript files whose modules will b
 forTag: css
 -->
 ```
+
+value type: a `string`
+
+context: blog tag page fragments only
+
+required: no
+
+It is used to identify the blog tag that this page fragment is associted with. See [blog] and [tag] for more information.
+
+#### forCategory
+
+```html
+<!--
+forCategory:
+  - web development
+  - trio
+-->
+```
+
+value type: an `array of strings` or a `single string`
+
+context: blog category page fragments only
+
+required: no
+
+It is used to identify the blog categories that this page fragment is associted with. See [blog] and [category] for more information.
+
+### Excerpts
+
+```html
+<!--
+.
+.
+.
+-->
+This is an excerpt.
+<!-- end -->
+This is the rest of the content.
+```
+
+You can explicitly declare a part of an include's or page fragment's content that directly follows front matter as an excerpt by using the separator `<-- end -->`.
 
 ## Page Fragments
 
@@ -314,17 +408,22 @@ A hash with one key/value pair for each .json file found in the the project's [s
 {
     frags: [
         {
-            path: "source/fragments/about.html",
-            template: "source/templates/default.html",
-            appendToTarget: true,
-            title: "About",
-            activeHeaderItem: 4,
-            callback: "showCurrentPageInHeader.js",
-            excerpt: "",
-            content: "<div class=\"banner\">\n    <img data-trio-link class=\"banner__image\" src=\"/media/mist-niagara-falls-river.jpg\" alt=\"image of blog\">\n</div>\n\n<section class=\"container\">\n    <h1 class=\"page-title\">About</h1>\n</section>",
-            id: 1,
-            destPath: "public/about/index.html",
-            url: "/about/"
+            "path": "source/fragments/index.html",
+            "matter": {
+                "content": "<div class=\"banner\">\n    <img data-trio-link class=\"banner__image\" src=\"/media/triad.jpg\" alt=\"image of triad\">\n</div>\n\n<section class=\"container\">\n    <h1 class=\"page-title\">Everything you always wanted in a static site generator... but less.</h1>\n</section>",
+                "data": {
+                    "template": "source/templates/default.html",
+                    "appendToTarget": true,
+                    "title": "Welcome to Trio!",
+                    "activeHeaderItem": 1,
+                    "callback": "showCurrentPageInHeader.js"
+                },
+                "isEmpty": false,
+                "excerpt": ""
+            },
+            "id": 13,
+            "destPath": "public/index.html",
+            "url": "/"
         }
         ...
     ]
@@ -424,7 +523,7 @@ This attribute is meant to be used in page tempates and instructs Trio to target
 
 __!__ _data-trio-fragment can be omitted if the page template is designed to be used by page fragments that do not contribute content._
 
-By default, Trio replaces the HTML tag with the content from the page fragment. To append the content to this HTML tag, declare `appendToTarget: true` in your page fragment front matter. For more information see [Front Matter Properties Used Internally By Trio](#front-matter-properties-internally-used-by-trio).
+By default, Trio replaces the HTML tag with the content from the page fragment. To append the content to this HTML tag, declare `appendToTarget: true` in your page fragment front matter. For more information see [Front Matter Properties Predefined By Trio](#front-matter-properties-predefined-by-trio).
 
 ### data-trio-include
 
@@ -434,7 +533,7 @@ By default, Trio replaces the HTML tag with the content from the page fragment. 
 
 This attribute, which can be used in page fragments and page templates, instructs Trio to target this HTML tag when merging the include file content.
 
-By default, Trio replaces the HTML tag with the content from the include file. To append the content to this HTML tag, declare `appendToTarget: true` in your include file front matter. For more information see [Front Matter Properties Used Internally By Trio](#front-matter-properties-internally-used-by-trio).
+By default, Trio replaces the HTML tag with the content from the include file. To append the content to this HTML tag, declare `appendToTarget: true` in your include file front matter. For more information see [Front Matter Properties Predefined By Trio](#front-matter-properties-predefined-by-trio).
 
 ### data-trio-link
 
