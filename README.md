@@ -22,7 +22,7 @@ __!__ _Please note that throughout this document the term `content`, when used, 
 
 * Built in support for MD5 hash-based cache busting, which Trio performs when building your site's release build.
 
-* Very generous built in support for [blogging](#blogging), including tags, categories and numerous catalogs of metadata that are passed to JavaScript callbacks to use when customizing your blog pages.
+* Extensive support for [blogging](#blogging), including tags, categories and numerous catalogs of metadata that are passed to JavaScript callbacks to use when customizing your blog pages.
 
 * Trio exposes its extensive collections of [metadata](#metadata) that it generates as a JSON file, `trio.metadata.json`, which it saves in the root of your project folder. Having the ability to actually see this data makes it much easier to reason about when coding the [JavaScript callbacks](#javascript-callbacks) that will use this data to to dynamically add content to and customize your web pages.
 
@@ -62,13 +62,15 @@ Having processed all of the include files, Trio then performs the following acti
 
 ## Front Matter
 
-Trio projects can make extensive use of YAML front matter to add content to and customize their web pages. Trio also predefines and reserves several front matter properties that can be used.
+Trio projects can make extensive use of YAML front matter to add content to and customize their web pages. Trio also predefines and reserves several front matter data properties that can be used.
 
-__!__ _You are free to define and use your own front matter properties to further customize your web pages as long as they do not collide with the the names of those predefined by Trio._
+__!__ _Trio uses the resilient and fast [gray-matter library](https://github.com/jonschlinkert/gray-matter) to implement its front matter support. If you aren't already familiar with front matter you are urged to follow the link to this library and read its excellent documentation._
 
-__!__ _Trio uses the open and close HTML comment tags (i.e. &lt;!--, --&gt;) as YAML front matter open and close delimiters, so front matter will not cause .html and .md page formatting issues._
+__!__ _You are free to define and use your own front matter data properties to further customize your web pages as long as they do not collide with the the names of those predefined by Trio._
 
-### Front Matter Properties Predefined By Trio
+__!__ _Trio uses the open and close HTML comment tags (i.e. &lt;!--, --&gt;) as YAML front matter open and close delimiters, so front matter will not create formatting issues in your .html and .md files._
+
+### Front Matter Data Properties Predefined By Trio
 
 #### template
 
@@ -84,7 +86,7 @@ context: page fragments only
 
 required: yes
 
-It is used to associates a page template file with this page fragment.
+It is used to associate a [page template](#page-templates) file with this [page fragment](#page-fragments).
 
 #### appendToTarget
 
@@ -100,9 +102,9 @@ context: includes and page fragments
 
 required: no
 
-If set to `true` then Trio will append the include's or page fragment's content to the html tag in the page template that has the `data-trio-fragment` attribute.
+When used in an [include](#includes) and if set to `true` then Trio will append the include's content to the html tag in the associated [page template](#page-templates) that has the [`data-trio-include`](#data-trio-include) attribute. If set to `false` or if the property isn't declared then Trio replaces the html tag in the associated page template that has the `data-trio-include` attribute with the include's content.
 
-If set to `false` or if the property isn't declared then Trio replaces the html tag in the page template that has the `data-trio-fragment` attribute with the include's or page fragment's content.
+When used in a [page fragment](#page-fragments) and if set to `true` then Trio will append the page fragment's content to the html tag in the associated [page template](#page-templates) that has the [`data-trio-fragment`](#data-trio-fragment) attribute. If set to `false` or if the property isn't declared then Trio replaces the html tag in the associated page template that has the `data-trio-fragment` attribute with the page fragment's content.
 
 #### title
 
@@ -118,7 +120,7 @@ context: page fragments only
 
 required: no
 
-It is used to set the title of the generated page. If it isn't provided, Trio will use the title tag in the head section of the associated page template.
+It is used to set the title of the generated page. If it isn't provided, Trio will use the *title tag in the head section* of the associated [page template](#page-templates).
 
 #### callback
 
@@ -189,7 +191,7 @@ context: blog tag page fragments only
 
 required: no
 
-It is used to identify the blog tag that this page fragment is associted with. See [blog] and [tag] for more information.
+It is used to identify the blog tag that this page fragment is associted with. See [blog] and [forTag] for more information.
 
 #### forCategory
 
@@ -207,7 +209,7 @@ context: blog category page fragments only
 
 required: no
 
-It is used to identify the blog categories that this page fragment is associted with. See [blog] and [category] for more information.
+It is used to identify the blog categories that this page fragment is associted with. See [blog] and [forCategory] for more information.
 
 ### Excerpts
 
@@ -408,24 +410,26 @@ A hash with one key/value pair for each .json file found in the the project's [s
 {
     frags: [
         {
-            "path": "source/fragments/index.html",
-            "matter": {
-                "content": "<div class=\"banner\">\n    <img data-trio-link class=\"banner__image\" src=\"/media/triad.jpg\" alt=\"image of triad\">\n</div>\n\n<section class=\"container\">\n    <h1 class=\"page-title\">Everything you always wanted in a static site generator... but less.</h1>\n</section>",
-                "data": {
-                    "template": "source/templates/default.html",
-                    "appendToTarget": true,
-                    "title": "Welcome to Trio!",
-                    "activeHeaderItem": 1,
-                    "callback": "showCurrentPageInHeader.js"
+            path: "source/fragments/index.html",
+            matter: {
+                content: "<div class=\"banner\">\n    <img data-trio-link class=\"banner__image\" src=\"/media/triad.jpg\" alt=\"image of triad\">\n</div>\n\n<section class=\"container\">\n    <h1 class=\"page-title\">Everything you always wanted in a static site generator... but less.</h1>\n</section>",
+                data: {
+                    template: "source/templates/default.html",
+                    appendToTarget: true,
+                    title: "Welcome to Trio!",
+                    activeHeaderItem: 1,
+                    callback: "showCurrentPageInHeader.js"
                 },
-                "isEmpty": false,
-                "excerpt": ""
+                isEmpty: false,
+                excerpt: ""
             },
-            "id": 13,
-            "destPath": "public/index.html",
-            "url": "/"
-        }
-        ...
+            id: 13,
+            destPath: "public/index.html",
+            url: "/"
+        },
+        .
+        .
+        .
     ]
 }
 ```
@@ -436,13 +440,105 @@ A list with one item for each page fragment that isn't a blog article.
 
 ```js
 {
-    articlesCount: 3,
+    articlesCount: 3
 }
 ```
 
 The total number of blog articles.
 
 ### articlesCatalog
+
+```js
+{
+    articlesCatalog: [
+        {
+            path: "source/fragments/blog/articles/2018-08-02-unlockyourimagination.md",
+            matter: {
+                content: "<p>Esse ea sint magna occaecat occaecat veniam. Dolore ex pariatur ullamco minim dolor laboris ipsum. Laboris cillum esse incididunt est est irure officia ipsum duis sit. Est voluptate eiusmod sit adipisicing aute.</p>\n<!-- end -->\n<p>Exercitation laborum tempor nulla consequat nisi minim consequat magna magna sint ut ut culpa. Id irure dolore veniam deserunt velit sint qui enim id occaecat ipsum. Magna sunt laboris quis ut mollit mollit laborum veniam mollit sunt reprehenderit laboris.</p>\n<p>Velit reprehenderit fugiat Lorem minim non duis exercitation ex. Occaecat consectetur duis duis consequat minim tempor occaecat cupidatat nostrud nulla aliqua. Velit deserunt nostrud cillum labore irure esse duis cupidatat dolor eiusmod. Occaecat quis veniam magna enim Lorem commodo esse ea esse. In quis id laborum dolore laborum magna ullamco. Culpa ex cillum deserunt enim culpa nulla anim elit duis.</p>\n",
+                data: {
+                    description: "blog article",
+                    template: "source/templates/article.html",
+                    appendToTarget: true,
+                    title: "Unlock Your Imagination",
+                    subtitle: "and liberate your mind",
+                    image: "chain-key-lock.jpg",
+                    activeHeaderItem: 3,
+                    callback: [
+                        "article.js",
+                        "showCurrentPageInHeader.js"
+                    ],
+                    category: [
+                        "web development"
+                    ],
+                    tag: [
+                        "html"
+                    ]
+                },
+                isEmpty: false,
+                excerpt: "Esse ea sint magna occaecat occaecat veniam. Dolore ex pariatur ullamco minim dolor laboris ipsum. Laboris cillum esse incididunt est est irure officia ipsum duis sit. Est voluptate eiusmod sit adipisicing aute.\n"
+            },
+            id: 5,
+            destPath: "public/trioblog/Web Development/2018/08/02/unlockyourimagination/index.html",
+            url: "/trioblog/Web Development/2018/08/02/unlockyourimagination/",
+            articleDate: "2018-08-02",
+            nextArticleUrl: "",
+            previousArticleUrl: "/trioblog/Web Development/2018/08/01/skyisthelimit/",
+            relatedArticlesByTag: [
+                {
+                    tag: "html",
+                    related: [
+                        {
+                            date: "2018-08-01",
+                            url: "/trioblog/Web Development/2018/08/01/skyisthelimit/",
+                            title: "The Sky's The Limit",
+                            id: 4,
+                            excerpt: "Esse ea sint magna occaecat occaecat veniam. Dolore ex pariatur ullamco minim dolor laboris ipsum. Laboris cillum esse incididunt est est irure officia ipsum duis sit. Est voluptate eiusmod sit adipisicing aute.\n"
+                        },
+                        {
+                            date: "2018-07-14",
+                            url: "/trioblog/Web Development/Trio/2018/07/14/thepowerofthree/",
+                            title: "The Power of Three",
+                            id: 3,
+                            excerpt: "Esse ea sint magna occaecat occaecat veniam. Dolore ex pariatur ullamco minim dolor laboris ipsum. Laboris cillum esse incididunt est est irure officia ipsum duis sit. Est voluptate eiusmod sit adipisicing aute.\n"
+                        }
+                    ]
+                }
+            ],
+            relatedArticlesByTagFlattened: [
+                {
+                    date: "2018-08-01",
+                    url: "/trioblog/Web Development/2018/08/01/skyisthelimit/",
+                    title: "The Sky's The Limit",
+                    id: 4,
+                    excerpt: "Esse ea sint magna occaecat occaecat veniam. Dolore ex pariatur ullamco minim dolor laboris ipsum. Laboris cillum esse incididunt est est irure officia ipsum duis sit. Est voluptate eiusmod sit adipisicing aute."
+                },
+                {
+                    date: "2018-07-14",
+                    url: "/trioblog/Web Development/Trio/2018/07/14/thepowerofthree/",
+                    title: "The Power of Three",
+                    id: 3,
+                    excerpt: "Esse ea sint magna occaecat occaecat veniam. Dolore ex pariatur ullamco minim dolor laboris ipsum. Laboris cillum esse incididunt est est irure officia ipsum duis sit. Est voluptate eiusmod sit adipisicing aute."
+                }
+            ],
+            relatedArticlesByCategory: {
+                category: "web development",
+                related: [
+                    {
+                        date: "2018-08-01",
+                        url: "/trioblog/Web Development/2018/08/01/skyisthelimit/",
+                        title: "The Sky's The Limit",
+                        id: 4,
+                        excerpt: "Esse ea sint magna occaecat occaecat veniam. Dolore ex pariatur ullamco minim dolor laboris ipsum. Laboris cillum esse incididunt est est irure officia ipsum duis sit. Est voluptate eiusmod sit adipisicing aute.\n"
+                    }
+                ]
+            }
+        },
+        .
+        .
+        .
+    ]
+}
+```
 
 A list whose items contain the metadata for each blog article related page fragment in descending date order.
 
@@ -499,6 +595,8 @@ A `cheerio` object that wraps the mashed up page.
 
 An object that exposes all the `metadata` specific to the include or page fragment for which this callback was called, including all its front matter properties.
 
+
+
 #### site
 
 An object that exposes all the `metadata` for the entire site.
@@ -523,7 +621,7 @@ This attribute is meant to be used in page tempates and instructs Trio to target
 
 __!__ _data-trio-fragment can be omitted if the page template is designed to be used by page fragments that do not contribute content._
 
-By default, Trio replaces the HTML tag with the content from the page fragment. To append the content to this HTML tag, declare `appendToTarget: true` in your page fragment front matter. For more information see [Front Matter Properties Predefined By Trio](#front-matter-properties-predefined-by-trio).
+By default, Trio replaces the HTML tag with the content from the page fragment. To append the content to this HTML tag, declare `appendToTarget: true` in your page fragment front matter. For more information see [appendToTarget](#appendtotarget).
 
 ### data-trio-include
 
@@ -531,9 +629,9 @@ By default, Trio replaces the HTML tag with the content from the page fragment. 
 <header data-trio-include="header.html"></header>
 ```
 
-This attribute, which can be used in page fragments and page templates, instructs Trio to target this HTML tag when merging the include file content.
+This attribute, which can be used in page fragments and page templates, instructs Trio to target this HTML tag when merging the specified include file's content.
 
-By default, Trio replaces the HTML tag with the content from the include file. To append the content to this HTML tag, declare `appendToTarget: true` in your include file front matter. For more information see [Front Matter Properties Predefined By Trio](#front-matter-properties-predefined-by-trio).
+By default, Trio replaces the HTML tag with the content from the include file. To append the content to this HTML tag, declare `appendToTarget: true` in your include file front matter. For more information see [appendToTarget](#appendtotarget).
 
 ### data-trio-link
 
@@ -570,6 +668,8 @@ then when you run a release build, Trio will generate the following:
 ```
 
 ## Blogging
+
+Trio provides extensive support for blogging, including [ tags ], [ categories ] and numerous [ catalogs of metadata ] that are passed to [ JavaScript callbacks ](#javascript-callbacks) to use when customizing your blog pages.
 
 ## Project Structure
 
