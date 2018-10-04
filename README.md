@@ -46,13 +46,13 @@ npm i -g @4awpawz/trio
 
 ## Quick Start
 
-## High Level - How Trio Creates Web Pages
+## How Trio Creates Web Pages
 
-Trio performs the following action for every [include](#includes) file it finds in the [source/includes folder](#project-structure).
+For every [include](#includes) file Trio finds in the [source/includes folder](#project-structure) it performs the following action:
 
 1. If the include has front matter and its front matter declares one or more [JavaScript callbacks](#javascript-callbacks), Trio will synchronously call each of the callbacks, passing them a single argument called a [context](#context-argument) whose properties can be destructured and used by the callback to further customize the include's content. 
 
-Having processed all of the include files, Trio then performs the following actions for every [page fragment](#page-fragments) file it finds in the [source/fragments folder](#project-structure).
+Then, for every [page fragment](#page-fragments) file Trio finds in the [source/fragments folder](#project-structure), it performs the following actions:
 
 1. Trio merges any content that might be contributed by the page fragment with the content contributed by the page fragment's associated [page template](#page-templates). This produces what can be called a *mashup*.
 
@@ -62,15 +62,56 @@ Having processed all of the include files, Trio then performs the following acti
 
 ## Front Matter
 
-Trio projects can make extensive use of YAML front matter to add content to and customize their web pages. Trio also predefines and reserves several front matter data properties that can be used.
+Trio projects make extensive use of YAML front matter to add content to and customize their web pages.
 
-__!__ _Trio uses the resilient and fast [gray-matter library](https://github.com/jonschlinkert/gray-matter) to implement its front matter support. If you aren't already familiar with front matter you are urged to follow the link to this library and read its excellent documentation._
+__!__ _Both [page fragments](#page-fragments) and [includes](#includes) can contain front matter._
 
-__!__ _You are free to define and use your own front matter data properties to further customize your web pages as long as they do not collide with the the names of those predefined by Trio._
+Below is an example of a page fragment with front matter
+
+```html
+<!--
+template: default.html
+appendToTarget: true
+title: About
+activeHeaderItem: 4
+callback: showCurrentPageInHeader.js
+-->
+
+<div class="banner">
+    <img data-trio-link class="banner__image" src="/media/mist-niagara-falls-river.jpg" alt="image of blog">
+</div>
+
+<section class="container">
+    <h1 class="page-title">About</h1>
+</section>`
+```
+
+and below is a JavaScript representation of that fragment's front matter.
+
+```js
+matter: {
+    content: "<div class=\"banner\">\n    <img data-trio-link class=\"banner__image\" src=\"/media/mist-niagara-falls-river.jpg\" alt=\"image of blog\">\n</div>\n\n<section class=\"container\">\n    <h1 class=\"page-title\">About</h1>\n</section>",
+    data: {
+        template: "source/templates/default.html",
+        appendToTarget: true,
+        title: "About",
+        activeHeaderItem: 4,
+        callback: "showCurrentPageInHeader.js"
+    },
+    isEmpty: false,
+    excerpt: ""
+}
+```
+
+__!__ _Trio uses the resilient and performant [gray-matter library](https://github.com/jonschlinkert/gray-matter) to implement its front matter support. If you aren't already familiar with front matter you are urged to follow the link to this library and read its excellent documentation._
 
 __!__ _Trio uses the open and close HTML comment tags (i.e. &lt;!--, --&gt;) as YAML front matter open and close delimiters, so front matter will not create formatting issues in your .html and .md files._
 
 ### Front Matter Data Properties Predefined By Trio
+
+Trio predefines several front matter data properties that can be used in [ includes ](#includes) and [ page fragments ](#page-fragments). Their usage is described below.
+
+__!__ _You are free to define and use your own front matter data properties to further customize your web pages as long as they do not collide with the the names of those predefined by Trio._
 
 #### template
 
@@ -120,7 +161,7 @@ context: page fragments only
 
 required: no
 
-It is used to set the title of the generated page. If it isn't provided, Trio will use the *title tag in the head section* of the associated [page template](#page-templates).
+It is used to set the title of the generated page. If it isn't provided, the *title tag in the head section* of the associated [page template](#page-templates) will be used.
 
 #### callback
 
@@ -132,7 +173,7 @@ callback:
 -->
 ```
 
-value type: an `array of strings` or a `single string`
+value type: a `single string` or an `array of strings`
 
 context: includes and page fragments
 
@@ -151,7 +192,7 @@ tag:
 -->
 ```
 
-value type: an `array of strings` or a `single string`
+value type: a `single string` or an `array of strings`
 
 context: blog article page fragments only
 
@@ -169,7 +210,7 @@ category:
 -->
 ```
 
-value type: an `array of strings` or a `single string`
+value type: a `single string` or an `array of strings`
 
 context: blog article page fragments only
 
@@ -203,7 +244,7 @@ forCategory:
 -->
 ```
 
-value type: an `array of strings` or a `single string`
+value type: a `single string` or an `array of strings`
 
 context: blog category page fragments only
 
@@ -230,7 +271,7 @@ You can explicitly declare a part of an include's or page fragment's content tha
 
 Page fragments, often just called fragments, can be either markdown or HTML files and must always contain [YAML front matter](https://github.com/jonschlinkert/gray-matter). They optionally may also contain markdown or HTML content.
 
-Page fragments must always declare in their front matter which [page template](#page-templates) they are associated with using the front matter `template` property.
+__!__ _Every page fragment must declare in their front matter the [page template](#page-templates) it is associated with using the front matter `template` property._
 
 Below is an example of a fragment with front matter and HTML content:
 
@@ -250,7 +291,6 @@ callback: showCurrentPageInHeader.js
     <h1 class="page-title">About</h1>
 </section>
 ```
-__--__ _source/fragments/about.html_
 
 Below is an example of a fragment that only contains front matter:
 
@@ -270,59 +310,53 @@ activeHeaderItem: 3
 
 ## Includes
 
-Includes are either markdown files or HTML files whose markup is used as snippets, such as for site-wide headers and footers. Includes can also optionally contain YAML front matter.
+Includes are either markdown files or HTML files whose content are copied into mashups. They are commonly used to copy common blocks of content that are shared among numerous pages, such as for site-wide headers and footers.
 
-Below is an example of an include file with YAML front matter whose content is used as a site-wide header:
+Includes can also optionally contain YAML front matter.
+
+Below is an example of an include file named *source/includes/header.html* with YAML front matter whose content is used as a site-wide header:
 
 ```html
 <!--
 callback: setBlogFolderName.js
 -->
 <header class="header-container header-container--fixed">
-    <div class="container">
-        <div class="header__promo">
-            <div class="header__promo-text">Trio</div>
-        </div>
-        <label class="hamburger-helper" for="hamburger-checkbox">
-            <div class="header-hamburger">
-                <div class="hamburger-bun">
-                    <div class="hamburger-patty"></div>
-                    <div class="hamburger-patty"></div>
-                    <div class="hamburger-patty"></div>
-                </div>
-            </div>
-        </label>
-        <input class="hamburger-checkbox" type="checkbox" id="hamburger-checkbox" autocomplete="off">
-        <nav class="header__nav">
-            <ul class="header__nav-items">
-                <li class="header__nav-item">
-                    <a data-trio-link class="header__nav-item-link" href="/">
-                        <i class="fas fa-home header__nav-item-icon"></i>Home</a>
-                </li>
-                <li class="header__nav-item">
-                    <a data-trio-link class="header__nav-item-link" href="/docs">
-                        <i class="fas fa-file header__nav-item-icon"></i>Docs</a>
-                </li>
-                <li class="header__nav-item">
-                    <a id="trio-blog-link" data-trio-link class="header__nav-item-link" href="/blog">
-                        <i class="fas fa-columns header__nav-item-icon"></i>Blog</a>
-                </li>
-                <li class="header__nav-item">
-                    <a data-trio-link class="header__nav-item-link" href="/about">
-                        <i class="fas fa-info header__nav-item-icon"></i>About</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+    <nav class="header__nav">
+        <ul class="header__nav-items">
+            <li class="header__nav-item">
+                <a data-trio-link class="header__nav-item-link" href="/">
+                    <i class="fas fa-home header__nav-item-icon"></i>Home</a>
+            </li>
+            <li class="header__nav-item">
+                <a data-trio-link class="header__nav-item-link" href="/docs">
+                    <i class="fas fa-file header__nav-item-icon"></i>Docs</a>
+            </li>
+            <li class="header__nav-item">
+                <a id="trio-blog-link" data-trio-link class="header__nav-item-link" href="/blog">
+                    <i class="fas fa-columns header__nav-item-icon"></i>Blog</a>
+            </li>
+            <li class="header__nav-item">
+                <a data-trio-link class="header__nav-item-link" href="/about">
+                    <i class="fas fa-info header__nav-item-icon"></i>About</a>
+            </li>
+        </ul>
+    </nav>
 </header>
 ``` 
-__--__ _source/includes/header.html_
+
+To copy the content of the above include file into a mashup, either the page fragment or the page template that were merged together to produce the mashup would have to have an html tag with the data attribute `datata-trio-include` referencing the header.html include file, such as in the example below:
+
+```html
+<header data-trio-include="header.html"></header>
+```
+
+__!__ _Note that only the file name and file extension (i.e. either .md or .html) are required when assigning a value for the include's file name to the data-trio-include attribute._
 
 ## Page Templates
 
-Page templates, often just called templates, are HTML files whose markup define the overall structure of static web pages.
+Page templates, often just called templates, are HTML files whose markup define the overall structure of web pages.
 
-Below is an example of a template:
+Below is an example of a page template file:
 
 ```html
 <!DOCTYPE html>
@@ -347,7 +381,8 @@ Below is an example of a template:
 
 </html>
 ```
-__--__ _source/templates/default.html_
+
+__!__ _Page fragments declare the page template they are associated with using the `template` front matter property._
 
 ## Metadata
 
@@ -435,6 +470,28 @@ A hash with one key/value pair for each .json file found in the the project's [s
 ```
 
 A list with one item for each page fragment that isn't a blog article.
+
+All page fragments, include [blog article related page fragments](#articlescatalog) have the following properties.
+
+#### path
+
+The page fragment's file path.
+
+#### matter
+
+The page fragment's YAML front matter.
+
+#### id
+
+The page fragment's unique id.
+
+#### destPath
+
+The page fragment's destination path.
+
+#### url
+
+The page fragment's url.
 
 ### articlesCount
 
@@ -542,6 +599,60 @@ The total number of blog articles.
 
 A list whose items contain the metadata for each blog article related page fragment in descending date order.
 
+In addtion to the following blog article properties specific to blog article page fragments, blog article related page fragment also have all of the properties that [non blog article page fragments](#frags) have.
+
+#### articleDate
+
+The posting date of the blog article as `"yyyy-mm-dd"`.
+
+#### nextArticleUrl
+
+The URL of the blog article whose posting date immediately precedes (i.e. is newer) this article's posting date in chronological order.
+
+Will be an empty string (i.e. "") if this is the first article in descending chronological order.
+
+#### previousArticleUrl
+
+The URL of the blog article whose posting date immediately follows (i.e. is older) this article's posting date in chronological order.
+
+Will be an empty string (i.e. "") if this is the last article in descending chronological order.
+
+#### relatedArticlesByTag
+
+A list of articles related to this article in descending chronological order, grouped by tag.
+
+##### tag
+
+The tag shared by all the related articles.
+
+##### related article date
+
+The posting date of the related article.
+
+##### related article url
+
+The URL of the related article.
+
+##### related article title
+
+The title of the related article.
+
+##### related article id
+
+The unique id of the related article.
+
+##### related article excerpt
+
+The related article's excerpt if it has one.
+
+#### relatedArticlesByTagFlattened
+
+Similar to [relatedArticlesByTag](#relatedarticlesbytag) above, it is a flatenend list of all the articles related to this article in descending chronological order.
+
+#### relatedArticlesByCategory 
+
+Similar to [relatedArticlesByTag](#relatedarticlesbytag) above, it is a list of articles related to this article in descending chronological order, grouped by category.
+
 ### sortedTagCatalog
 
 A list whose items contain the metadata for each blog tag in alphabetical order.
@@ -564,11 +675,10 @@ module.exports = ({$, frag}) => {
         .addClass("header__nav-item--active");
 };
 ```
-__--__ _source/callbacks/showCurrentPageInHeader.js_
 
 In the callback example above, you might think that the `$` argument is a `jQuery` object, but it is not.
 
-__!__ _There is absolutely no browser involved here, only streams of static markup text. So jQuery, which interacts with the browser, and not with streams of static markup text, would be totally useless._
+__!__ _There is absolutely no browser involved here, only streams of markup text. So jQuery, which interacts with the browser, and not with streams of markup text, would be totally useless._
 
 The `$` argument is, in fact, a `cheerio` object that wraps the mashed up page.
 
