@@ -471,7 +471,7 @@ A hash with one key/value pair for each .json file found in the the project's [s
 
 A list with one item for each page fragment that isn't a blog article.
 
-All page fragments, include [blog article related page fragments](#articlescatalog) have the following properties.
+All page fragments, including [blog article related page fragments](#articlescatalog), have the following properties.
 
 #### path
 
