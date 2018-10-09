@@ -40,9 +40,7 @@ __!__ _Please note that throughout this document the term `content`, when used, 
 
 Trio is meant to be installed globally. From the command line please run the following:
 
-```
-npm i -g @4awpawz/trio
-```
+`npm i -g @4awpawz/trio`
 
 ## Quick Start
 
@@ -113,7 +111,7 @@ Trio predefines several front matter data properties that can be used in [ inclu
 
 __!__ _You are free to define and use your own front matter data properties to further customize your web pages as long as they do not collide with the the names of those predefined by Trio._
 
-#### template
+#### `template`
 
 ```html
 <!--
@@ -129,7 +127,7 @@ required: yes
 
 It is used to associate a [page template](#page-templates) file with this [page fragment](#page-fragments).
 
-#### appendToTarget
+#### `appendToTarget`
 
 ```html
 <!--
@@ -147,7 +145,7 @@ When used in an [include](#includes) and if set to `true` then Trio will append 
 
 When used in a [page fragment](#page-fragments) and if set to `true` then Trio will append the page fragment's content to the html tag in the associated [page template](#page-templates) that has the [`data-trio-fragment`](#data-trio-fragment) attribute. If set to `false` or if the property isn't declared then Trio replaces the html tag in the associated page template that has the `data-trio-fragment` attribute with the page fragment's content.
 
-#### title
+#### `title`
 
 ```html
 <!--
@@ -163,7 +161,7 @@ required: no
 
 It is used to set the title of the generated page. If it isn't provided, the *title tag in the head section* of the associated [page template](#page-templates) will be used.
 
-#### callback
+#### `callback`
 
 ```html
 <!--
@@ -181,7 +179,7 @@ required: no
 
 It is used to declare one or more names of JavaScript files whose *modules* will be called synchronously by Trio. For more information see [JavaScript Callbacks](#javascript-callbacks).
 
-#### tag
+#### `tag`
 
 ```html
 <!--
@@ -200,7 +198,7 @@ required: no
 
 It is used to assign one or more tags to this blog article. See [blog] and [tag] for more information.
 
-#### category
+#### `category`
 
 ```html
 <!--
@@ -218,7 +216,7 @@ required: no
 
 It is used to assign one or more categories to this blog article. See [blog] and [category] for more information.
 
-#### forTag
+#### `forTag`
 
 ```html
 <!--
@@ -234,7 +232,7 @@ required: no
 
 It is used to identify the blog tag that this page fragment is associted with. See [blog] and [forTag] for more information.
 
-#### forCategory
+#### `forCategory`
 
 ```html
 <!--
@@ -382,7 +380,7 @@ Below is an example of a page template file:
 </html>
 ```
 
-__!__ _Page fragments declare the page template they are associated with using the `template` front matter property._
+__!__ _Page fragments declare the page template they are associated with using the [ template ](#template) front matter property._
 
 ## Metadata
 
@@ -390,7 +388,7 @@ Trio generates an extensive amount of  metadata while building your project's so
 
 Below is a list of the metadata items that Trio generates, including their key names and their descriptions:
 
-### timestamp
+### `timestamp`
 
 ```js
 {
@@ -400,7 +398,7 @@ Below is a list of the metadata items that Trio generates, including their key n
 
 The project's build date and time.
 
-### userConfig
+### `userConfig`
 
 _* trio.json_
 ```js
@@ -414,7 +412,7 @@ _* trio.json_
     
 The content of the prject's `trio.json` [configuration](#configuration) file.
 
-### dataCatalog
+### `dataCatalog`
 
 _* source/data/author.json, source/data/fruits.json, source/data/vegies.json_
 ```js
@@ -439,7 +437,7 @@ _* source/data/author.json, source/data/fruits.json, source/data/vegies.json_
 A hash with one key/value pair for each .json file found in the the project's [source/data folder](#project-structure). The keys are the names of the individual files and the values are the file's content.
 
 
-### frags
+### `frags`
 
 ```js
 {
@@ -473,27 +471,27 @@ A list with one item for each page fragment that isn't a blog article.
 
 All page fragments, including [blog article related page fragments](#articlescatalog), have the following properties.
 
-#### path
+#### `path`
 
 The page fragment's file path.
 
-#### matter
+#### `matter`
 
 The page fragment's YAML front matter.
 
-#### id
+#### `id`
 
 The page fragment's unique id.
 
-#### destPath
+#### `destPath`
 
-The page fragment's destination path.
+The generated page's destination path.
 
-#### url
+#### `url`
 
-The page fragment's url.
+The generated page's url.
 
-### articlesCount
+### `articlesCount`
 
 ```js
 {
@@ -503,7 +501,7 @@ The page fragment's url.
 
 The total number of blog articles.
 
-### articlesCatalog
+### `articlesCatalog`
 
 ```js
 {
@@ -599,67 +597,182 @@ The total number of blog articles.
 
 A list whose items contain the metadata for each blog article related page fragment in descending date order.
 
-In addtion to the following blog article properties specific to blog article page fragments, blog article related page fragment also have all of the properties that [non blog article page fragments](#frags) have.
+In addition to the following properties specific to blog article page fragments, blog article related page fragment also have all of the properties that [non blog article page fragments](#frags) have.
 
-#### articleDate
+#### `articleDate`
 
-The posting date of the blog article as `"yyyy-mm-dd"`.
+The posting date of the blog article as `"yyyy-mm-dd"`, which comes from the blog article page fragment's file name.
 
-#### nextArticleUrl
+#### `nextArticleUrl`
 
 The URL of the blog article whose posting date immediately precedes (i.e. is newer) this article's posting date in chronological order.
 
 Will be an empty string (i.e. "") if this is the first article in descending chronological order.
 
-#### previousArticleUrl
+#### `previousArticleUrl`
 
 The URL of the blog article whose posting date immediately follows (i.e. is older) this article's posting date in chronological order.
 
 Will be an empty string (i.e. "") if this is the last article in descending chronological order.
 
-#### relatedArticlesByTag
+#### `relatedArticlesByTag`
 
 A list of articles related to this article in descending chronological order, grouped by tag.
 
-##### tag
+##### `tag`
 
 The tag shared by all the related articles.
 
-##### related article date
+##### `related`
 
-The posting date of the related article.
+A list of one or more articles which all have the same tag.
 
-##### related article url
+###### `date`
+
+The posting date of the related article, which comes from the blog article's page fragment's file name.
+
+###### `url`
 
 The URL of the related article.
 
-##### related article title
+###### `title`
 
-The title of the related article.
+The title of the generated page, which comes from the blog article's page frament front matter.
 
-##### related article id
+###### `id`
 
 The unique id of the related article.
 
-##### related article excerpt
+###### `excerpt`
 
 The related article's excerpt if it has one.
 
-#### relatedArticlesByTagFlattened
+#### `relatedArticlesByTagFlattened`
 
 Similar to [relatedArticlesByTag](#relatedarticlesbytag) above, it is a flatenend list of all the articles related to this article in descending chronological order.
 
-#### relatedArticlesByCategory 
+#### `relatedArticlesByCategory` 
 
 Similar to [relatedArticlesByTag](#relatedarticlesbytag) above, it is a list of articles related to this article in descending chronological order, grouped by category.
 
-### sortedTagCatalog
+### `sortedTagCatalog`
+
+```js
+sortedTagCatalog:
+[
+    {
+        tag: "css",
+        related: [
+            {
+                date: "2018-08-01",
+                url: "/trioblog/Web%20Development/2018/08/01/skyisthelimit/",
+                title: "The Sky's The Limit",
+                id: 4,
+                excerpt: "Esse ea sint magna occaecat occaecat veniam. Dolore ex pariatur ullamco minim dolor laboris ipsum. Laboris cillum esse incididunt est est irure officia ipsum duis sit. Est voluptate eiusmod sit adipisicing aute.\n"
+            },
+            {
+                date: "2018-07-14",
+                url: "/trioblog/Web%20Development/Trio/2018/07/14/thepowerofthree/",
+                title: "The Power of Three",
+                id: 3,
+                excerpt: "Esse ea sint magna occaecat occaecat veniam. Dolore ex pariatur ullamco minim dolor laboris ipsum. Laboris cillum esse incididunt est est irure officia ipsum duis sit. Est voluptate eiusmod sit adipisicing aute.\n"
+            }
+        ]
+    },
+    .
+    .
+    .
+]
+```
 
 A list whose items contain the metadata for each blog tag in alphabetical order.
 
-### catagoriesCatalog
+##### `tag`
 
-A list whose items contain the metadata for  each blog category in alphabetical order.
+The tag shared by all the related articles.
+
+##### `related`
+
+A list of articles related to this article in descending chronological order, grouped by tag.
+
+###### `date`
+
+The posting date of the related article, which comes from the blog article's page fragment's file name.
+
+###### `url`
+
+The URL of the related article.
+
+###### `title`
+
+The title of the generated page, which comes from the blog article's page frament front matter.
+
+###### `id`
+
+The unique id of the related article.
+
+###### `excerpt`
+
+The related article's excerpt if it has one.
+
+### `catagoriesCatalog`
+
+```js
+categoriesCatalog: [
+    {
+        category: "web development",
+        related: [
+            {
+                date: "2018-08-02",
+                url: "/trioblog/Web%20Development/2018/08/02/unlockyourimagination/",
+                title: "Unlock Your Imagination",
+                id: 5,
+                excerpt: "Esse ea sint magna occaecat occaecat veniam. Dolore ex pariatur ullamco minim dolor laboris ipsum. Laboris cillum esse incididunt est est irure officia ipsum duis sit. Est voluptate eiusmod sit adipisicing aute.\n"
+            },
+            {
+                date: "2018-08-01",
+                url: "/trioblog/Web%20Development/2018/08/01/skyisthelimit/",
+                title: "The Sky's The Limit",
+                id: 4,
+                excerpt: "Esse ea sint magna occaecat occaecat veniam. Dolore ex pariatur ullamco minim dolor laboris ipsum. Laboris cillum esse incididunt est est irure officia ipsum duis sit. Est voluptate eiusmod sit adipisicing aute.\n"
+            }
+        ]
+    },
+    .
+    .
+    .
+]
+```
+
+A list whose items contain the metadata for each blog category in alphabetical order.
+
+##### `category`
+
+The category shared by all the related articles.
+
+##### `related`
+
+A list of articles related to this article in descending chronological order, grouped by category.
+
+###### `date`
+
+The posting date of the related areicle, which comes from the blog article's page fragment's file name.
+
+###### `url`
+
+The URL of the related article.
+
+###### `title`
+
+The title of the generated page, which comes from the blog article's page frament front matter.
+
+###### `id`
+
+The unique id of the related article.
+
+###### `excerpt`
+
+The related article's excerpt if it has one.
 
 ## JavaScript Callbacks
 
@@ -697,21 +810,21 @@ Trio passes a single object, called a `context`, to each callback:
 };
 ```
 
-#### $
+#### `$`
 
 A `cheerio` object that wraps the mashed up page.
 
-#### frag
+#### `frag`
 
 An object that exposes all the `metadata` specific to the include or page fragment for which this callback was called, including all its front matter properties.
 
 
 
-#### site
+#### `site`
 
 An object that exposes all the `metadata` for the entire site.
 
-#### cheerio
+#### `cheerio`
 
 A cheerio object that can be used to create new cheerio wrappers.
 
@@ -721,7 +834,7 @@ Trio recognizes numerous *data attributes* in HTML tags that begin with `data-tr
 
 Below is a complete list of these attributes along with their descriptions.
 
-### data-trio-fragment
+### `data-trio-fragment`
 
 ```html
 <main data-trio-fragment></main>
@@ -733,7 +846,7 @@ __!__ _data-trio-fragment can be omitted if the page template is designed to be 
 
 By default, Trio replaces the HTML tag with the content from the page fragment. To append the content to this HTML tag, declare `appendToTarget: true` in your page fragment front matter. For more information see [appendToTarget](#appendtotarget).
 
-### data-trio-include
+### `data-trio-include`
 
 ```html
 <header data-trio-include="header.html"></header>
@@ -743,7 +856,7 @@ This attribute, which can be used in page fragments and page templates, instruct
 
 By default, Trio replaces the HTML tag with the content from the include file. To append the content to this HTML tag, declare `appendToTarget: true` in your include file front matter. For more information see [appendToTarget](#appendtotarget).
 
-### data-trio-link
+### `data-trio-link`
 
 ```html
 <link data-trio-link rel="stylesheet" href="/css/style.css">
@@ -783,67 +896,67 @@ Trio provides extensive support for blogging, including [ tags ], [ categories ]
 
 ## Project Structure
 
-### root/
+### `root/`
 
 The root project folder for the Trio project.
 
-### root/public/
+### `root/public/`
 
 The folder where the generated website is saved to and is recreated whenever Trio builds the project's source folder.
 
-### root/source/
+### `root/source/`
 
 The Trio project's development folder.
 
-### root/source/callbacks/
+### `root/source/callbacks/`
 
 The folder where JavaScript callback modules are kept.
 
-### root/source/css/
+### `root/source/css/`
 
 The folder where CSS files are kept.
 
-### root/source/data/
+### `root/source/data/`
 
 The folder where .json data files are kept
 
-### root/source/fragments/
+### `root/source/fragments/`
 
 The folder where .md and .html fragments are kept.
 
-### root/source/fragments/blog
+### `root/source/fragments/blog`
 
 The folder where .md and .html blog specific fragments are kept.
 
-### root/source/fragments/blog/articles
+### `root/source/fragments/blog/articles`
 
 The folder where .md and .html blog article specific fragments are kept.
 
-### root/source/includes/
+### `root/source/includes/`
 
 The folder where .md and .html include files are kept.
 
-### root/source/media/
+### `root/source/media/`
 
 The folder where media (.jpg, .gif, .pdf, .etc) are kept.
 
-### root/source/sass/
+### `root/source/sass/`
 
 The folder where the main and import .scss files are kept.
 
-### root/source/scripts/
+### `root/source/scripts/`
 
 The folder where run-time JavaScript files are kept.
 
-### root/source/templates/
+### `root/source/templates/`
 
 The folder where .html templates are kept.
 
-### root/trio.json
+### `root/trio.json`
 
 The project's configuration file.
 
-### root/trio.manifest.json
+### `root/trio.manifest.json`
 
 Contains extensive collections of metadata that is generated every time Trio builds the project.
 
