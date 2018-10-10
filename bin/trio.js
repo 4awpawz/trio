@@ -22,7 +22,7 @@ const generalHelp = () => {
     console.log("    -h (this help)");
     console.log("");
     console.log("where <command> is one of:");
-    console.log("    b, build, h, help, n, new, r, release, w, watch ");
+    console.log("    b, build, h, help, n, new, r, release, s, serve ");
     console.log("");
     console.log("For command specific help, enter trio h | help <command>");
     console.log("");
@@ -46,10 +46,10 @@ const commandSpecificHelp = (command) => {
         console.log("Usage: trio release");
         console.log("Aliases: r");
         console.log("builds public folder for release");
-    } else if (command === "w" || command === "watch") {
-        console.log("Usage: trio watch");
-        console.log("Aliases: w");
-        console.log("launches browser and watches source folder for changes");
+    } else if (command === "s" || command === "serve") {
+        console.log("Usage: trio serve");
+        console.log("Aliases: s");
+        console.log("launches browser, serves the application and watches source folder for changes");
     } else {
         console.log("Unknown command");
         generalHelp();
@@ -83,8 +83,8 @@ if (!command.length) {
 } else if (command[0] === "r" || command[0] === "release") {
     console.log("building public folder for release");
     build({ environment: "release" });
-} else if (command[0] === "w" || command[0] === "watch") {
-    console.log("launching browser and watching source folder for changes");
+} else if (command[0] === "s" || command[0] === "serve") {
+    console.log("launching browser, serving the application and watching source folder for changes");
     watch();
 } else {
     console.log("Unknown command");
