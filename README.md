@@ -60,7 +60,7 @@ Then, for every [page fragment](#page-fragments) file Trio finds in the [source/
 
 ## Front Matter
 
-Your Trio projects make extensive use of YAML front matter to add content to and customize their web pages.
+Trio projects make extensive use of YAML front matter to add content to and customize their web pages. You can define your own custom front matter properties to build out your web pages and Trio [ predefines serveral front matter properties ](#properties-predefined-by-trio) for you as well.
 
 __!__ _Both [page fragments](#page-fragments) and [includes](#includes) can contain front matter._
 
@@ -105,11 +105,9 @@ __!__ _Trio uses the resilient and performant [gray-matter library](https://gith
 
 __!__ _Trio uses the open and close HTML comment tags (i.e. &lt;!--, --&gt;) as YAML front matter open and close delimiters, so front matter will not create formatting issues in your .html and .md files._
 
-### Front Matter Data Properties Predefined By Trio
+### Properties Predefined By Trio
 
-Trio predefines several front matter data properties that can be used in [ includes ](#includes) and [ page fragments ](#page-fragments). Their usage is described below.
-
-__!__ _You are free to define and use your own custom front matter data properties to further customize your web pages as long as they do not collide with the the names of those predefined by Trio._
+Trio predefines several front matter properties that can be used in [ includes ](#includes) and [ page fragments ](#page-fragments). Their usage is described below.
 
 #### `template`
 
@@ -310,7 +308,7 @@ activeHeaderItem: 3
 
 ## Includes
 
-Includes are either markdown files or HTML files that you can declare in your page fragments and page templates whose content is copied into mashups. They are used to copy commonly used blocks of content that are shared among numerous pages, such as for site-wide headers and footers for instance.
+Includes are either markdown files or HTML files that you can declare in your [ page fragments ](#page-fragments) and [ page templates ](#page-templates) whose content is copied into mashups. They are used to copy commonly used blocks of content that are shared among numerous pages, such as for site-wide headers and footers for instance.
 
 __!__ _Includes can optionally contain YAML [ front matter ](#front-matter) so therefore they also support JavaScript callbacks._
 
@@ -460,7 +458,7 @@ _* source/data/author.json, source/data/fruits.json, source/data/vegies.json_
             name: "Janet Doe",
             birthday: "1978-01-14",
             email: "janetdoe@janetdoe.com",
-            country: "United State",
+            country: "United States",
             address: "1 East Drive Lane",
             city: "Manchester",
             state: "Newhamshire",
