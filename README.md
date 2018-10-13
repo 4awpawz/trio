@@ -60,7 +60,7 @@ Then, for every [page fragment](#page-fragments) file Trio finds in the [source/
 
 ## Front Matter
 
-Trio projects make extensive use of YAML front matter to add content to and customize their web pages.
+Your Trio projects make extensive use of YAML front matter to add content to and customize their web pages.
 
 __!__ _Both [page fragments](#page-fragments) and [includes](#includes) can contain front matter._
 
@@ -109,7 +109,7 @@ __!__ _Trio uses the open and close HTML comment tags (i.e. &lt;!--, --&gt;) as 
 
 Trio predefines several front matter data properties that can be used in [ includes ](#includes) and [ page fragments ](#page-fragments). Their usage is described below.
 
-__!__ _You are free to define and use your own front matter data properties to further customize your web pages as long as they do not collide with the the names of those predefined by Trio._
+__!__ _You are free to define and use your own custom front matter data properties to further customize your web pages as long as they do not collide with the the names of those predefined by Trio._
 
 #### `template`
 
@@ -157,9 +157,11 @@ value type: a `string`
 
 context: page fragments only
 
-required: no
+required: yes
 
-It is used to set the title of the generated page. If it isn't provided, the *title tag in the head section* of the associated [page template](#page-templates) will be used.
+It is used to set the value of the generated page's title tag.
+
+__!__ _You can also use the title property for h1 tags in your pages._
 
 #### `callback`
 
@@ -269,7 +271,7 @@ You can explicitly declare a part of an include's or page fragment's content tha
 
 Page fragments, often just called fragments, can be either markdown or HTML files and must always contain [YAML front matter](https://github.com/jonschlinkert/gray-matter). They optionally may also contain markdown or HTML content.
 
-__!__ _Every page fragment must declare in their front matter the [page template](#page-templates) it is associated with using the front matter `template` property._
+__!__ _Every page fragment must declare the [page template](#page-templates) it is associated with using the front matter [ `template` ](#template) property._
 
 Below is an example of a fragment with front matter and HTML content:
 
@@ -308,11 +310,11 @@ activeHeaderItem: 3
 
 ## Includes
 
-Includes are either markdown files or HTML files whose content are copied into mashups. They are commonly used to copy common blocks of content that are shared among numerous pages, such as for site-wide headers and footers.
+Includes are either markdown files or HTML files that you can declare in your page fragments and page templates whose content is copied into mashups. They are used to copy commonly used blocks of content that are shared among numerous pages, such as for site-wide headers and footers for instance.
 
-Includes can also optionally contain YAML front matter.
+__!__ _Includes can optionally contain YAML [ front matter ](#front-matter) so therefore they also support JavaScript callbacks._
 
-Below is an example of an include file named *source/includes/header.html* with YAML front matter whose content is used as a site-wide header:
+Below is an example of an include file named *source/includes/header.html* with YAML front matter declaring a JavaScript callback and whose content is used as a site-wide header:
 
 ```html
 <!--
@@ -342,13 +344,49 @@ callback: setBlogFolderName.js
 </header>
 ``` 
 
-To copy the content of the above include file into a mashup, either the page fragment or the page template that were merged together to produce the mashup would have to have an html tag with the data attribute `datata-trio-include` referencing the header.html include file, such as in the example below:
+### Declaring Includes In Page Fragments And Page Templates
+
+Trio supports both `static` and `dynamic` include file declarations. Static include file declarations hard code the include file's name. Dynamic include file declarations use one level of indirection to resolve the include file's name.
+
+#### Static Include File Declaration
+
+To statically declare an include file in a page fragment or page template, add the data attribute `datata-trio-include` to an HTML tag and assign its value the name of the include file, including its file type of either .md or .html, as its value:
 
 ```html
 <header data-trio-include="header.html"></header>
 ```
 
-__!__ _Note that only the file name and file extension (i.e. either .md or .html) are required when assigning a value for the include's file name to the data-trio-include attribute._
+#### Dynamic Include File Declaration
+
+To dynamically declare an include file in a page fragment or page template, add the data attribute `datata-trio-include` to an HTML tag and assign its value the name of a `front matter property` that Trio expects to resolve to the name of an include file, including its file type of either .md or .html.
+
+Dynamic includes are useful in those situations where a page template is associated with more than one page fragment and each page fragment contributes a diffrent include file.
+
+For example, a page template named `default.html` is associated with two page fragments and somewhere in its content dynamically declares an include file as follows:
+
+```html
+<header data-trio-include="header"></header>
+```
+
+One of the page fragments associated with the page template has the following properties in its front matter:
+
+```html
+<!--
+template: default.html
+header: simpleheader.html
+-->
+```
+
+The other page fragment associated with the page template has the following properties in its front matter:
+
+```html
+<!--
+template: default.html
+header: complexheader.html
+-->
+```
+
+Bothe page fragments are associated with the same page template yet each page fragment is including a different include file.
 
 ## Page Templates
 
