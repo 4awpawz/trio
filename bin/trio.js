@@ -70,7 +70,6 @@ if (!command.length) {
         generalHelp();
     }
 } else if (command[0] === "b" || command[0] === "build") {
-    console.log("building public folder for development");
     build();
 } else if (command[0] === "n" || command[0] === "new") {
     if (command[1] && command[1].length) {
@@ -81,7 +80,6 @@ if (!command.length) {
         commandSpecificHelp("n");
     }
 } else if (command[0] === "r" || command[0] === "release") {
-    console.log("building public folder for release");
     build({ environment: "release" });
 } else if (command[0] === "s" || command[0] === "serve") {
     console.log("launching browser, serving the application and watching source folder for changes");
