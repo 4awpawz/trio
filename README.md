@@ -16,15 +16,15 @@ __!__ _Please note that throughout this document the term `content`, when used, 
 
 * Built in support for SASS as well as CSS.
 
-* Automatic generation of all internal links as permalinks, which are based on an index.html file's parent folder name.
+* `Permalinks` are automatically generated for all internal links and are derived from an index.html file's parent folder name or an .md or .html file's name. See [URLS](#urls) for more information.
 
-* Built in support for `base url` segments, which are generated when building your site's release build. For more information see [data-trio attributes](#data-trio-attributes) and [configuration](#configuration).
+* Prepends production site's `base url` segment to URLS in `src` and `href` attributes when building your site's release build. For more information see [data-trio-link](#data-trio-link), [configuration](#configuration) and [command line](#command-line).
 
-* Built in support for MD5 hash-based cache busting, which Trio performs when building your site's release build.
+* Cache busts your files using MD5 hash-based file names when building your site's release build.
 
-* Extensive support for [blogging](#blogging), including tags, categories and numerous catalogs of metadata that are passed to JavaScript callbacks to use when customizing your blog pages.
+* Extensive support for [blogging](#blogging) including tags, categories and numerous catalogs of blog-specific metadata that are exposed to JavaScript callbacks used to customize your blog pages.
 
-* Trio exposes its extensive collections of [metadata](#metadata) that it generates as a JSON file, `trio.metadata.json`, which it saves in the root of your project folder. Having the ability to actually see this data makes it much easier to reason about when coding the [JavaScript callbacks](#javascript-callbacks) that will use this data to to dynamically add content to and customize your web pages.
+* Trio generates an extensive collection of [metadata](#metadata) that it exposes to the JavaScript callbacks you use to customize your web pages and also as a JSON file, `trio.metadata.json`, which it saves in the root of your project folder. Having the ability to actually see this data makes it much easier to reason about when coding the [JavaScript callbacks](#javascript-callbacks) that will use this data to to dynamically add content to and customize your web pages.
 
 * Through the use of *convention over configuration*, Trio requires almost zero [configuration](#configuration), which means you can start using Trio right out of the box.
 
@@ -925,6 +925,8 @@ then when you run a release build, Trio will generate the following:
 
 <img src="/xyz/media/mist-niagara-falls-river.jpg">
 ```
+
+## URLS
 
 ## Blogging
 
