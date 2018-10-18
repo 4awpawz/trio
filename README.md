@@ -2,7 +2,7 @@
 
 Trio is a simple to use static website generator built with Node.js. It reflects its author's desire to rely exclusively upon the three pillars of the web - *HTML*, *JavaScript* and *CSS* - along with *YAML front matter* and with the *least amount of configuration necessary*, to create static websites.
 
-As such, Trio is somewhat opinionated but if you love working with HTML, CSS and JavaScript then you just might love creating static websites with it. 
+As such Trio is somewhat opinionated but if you love working with HTML, CSS and JavaScript then you just might love creating static websites with it. 
 
 This isn't just la di da!
 
@@ -14,7 +14,7 @@ __!__ _Please note that throughout this document the term `content`, when used, 
 
 * [Front Matter](#front-matter) will parse as HTML comments and wont break your markup's formatting.
 
-* Built in support for SASS as well as CSS.
+* Support for SCSS/SASS as well as CSS.
 
 * `Permalinks` are automatically generated for all internal links and are derived from an index.html file's parent folder name or an .md or .html file's name. See [URLS](#urls) for more information.
 
@@ -663,7 +663,7 @@ The tag shared by all the related articles.
 
 A list of one or more articles which all have the same tag.
 
-###### `date`
+###### `articleDate`
 
 The posting date of the related article, which comes from the blog article's page fragment's file name.
 
@@ -731,7 +731,7 @@ The tag shared by all the related articles.
 
 A list of articles related to this article in descending chronological order, grouped by tag.
 
-###### `date`
+###### `articleDate`
 
 The posting date of the related article, which comes from the blog article's page fragment's file name.
 
@@ -790,7 +790,7 @@ The category shared by all the related articles.
 
 A list of articles related to this article in descending chronological order, grouped by category.
 
-###### `date`
+###### `articleDate`
 
 The posting date of the related areicle, which comes from the blog article's page fragment's file name.
 
