@@ -18,13 +18,13 @@ const generalHelp = () => {
     console.log("Usage: trio [option] | trio <command>");
     console.log("");
     console.log("where [option] is one of:");
-    console.log("    -v (version)");
-    console.log("    -h (this help)");
+    console.log("    -v | --version (version)");
+    console.log("    -h | --help (this help)");
     console.log("");
     console.log("where <command> is one of:");
-    console.log("    b, build, h, help, n, new, r, release, s, serve ");
+    console.log("    b, build, n, new, r, release, s, serve ");
     console.log("");
-    console.log("For command specific help, enter trio h | help <command>");
+    console.log("For command specific help, enter trio -h | --help <command>");
     console.log("");
 };
 
@@ -34,14 +34,11 @@ const commandSpecificHelp = (command) => {
         console.log("Usage: trio build");
         console.log("Aliases: b");
         console.log("builds public folder for development");
-    } else if (command === "h" || command === "help") {
-        console.log("Usage: trio help <command>");
-        console.log("Aliases: h");
-        console.log("this help");
     } else if (command === "n" || command === "new") {
         console.log("Usage: trio new [path/to/new/project]");
         console.log("Aliases: n");
-        console.log("creates a new project in path folder");
+        console.log("create a new empty project in path folder");
+        console.log("use -q option to clone quickstart project in path folder");
     } else if (command === "r" || command === "release") {
         console.log("Usage: trio release");
         console.log("Aliases: r");
@@ -49,7 +46,7 @@ const commandSpecificHelp = (command) => {
     } else if (command === "s" || command === "serve") {
         console.log("Usage: trio serve");
         console.log("Aliases: s");
-        console.log("launches browser, serves the application and watches source folder for changes");
+        console.log("launches browser, serves application and watches source folder for changes");
     } else {
         console.log("Unknown command");
         generalHelp();
@@ -58,31 +55,25 @@ const commandSpecificHelp = (command) => {
 
 // command runner
 if (!command.length) {
-    if (options[0] === "-v") {
+    if (options[0] === "-v" || options[0] === "--version") {
         console.log(version);
     } else {
         generalHelp();
     }
-} else if (command[0] === "h" || command[0] === "help") {
-    if (command[1]) {
-        commandSpecificHelp(command[1]);
+} else if (options[0] === "-h" || options[0] === "--help") {
+    if (command[0]) {
+        commandSpecificHelp(command[0]);
     } else {
         generalHelp();
     }
 } else if (command[0] === "b" || command[0] === "build") {
     build();
 } else if (command[0] === "n" || command[0] === "new") {
-    if (command[1] && command[1].length) {
-        console.log(`creating new project at ${command[1]}`);
-        createNewProject(command[1]);
-    } else {
-        console.log("missing path parameter");
-        commandSpecificHelp("n");
-    }
+    createNewProject(command[1], options[0]);
 } else if (command[0] === "r" || command[0] === "release") {
     build({ environment: "release" });
 } else if (command[0] === "s" || command[0] === "serve") {
-    console.log("launching browser, serving the application and watching source folder for changes");
+    console.log("launching browser, serving application and watching source folder for changes");
     watch();
 } else {
     console.log("Unknown command");
