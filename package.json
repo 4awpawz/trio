@@ -1,17 +1,33 @@
 {
   "name": "@4awpawz/trio",
   "version": "0.0.1",
-  "description": "",
+  "description": "Trio is a simple to use static website generator built with Node.js. It reflects its author's desire to rely exclusively upon the three pillars of the web - HTML, JavaScript and CSS - along with YAML front matter and with the least amount of configuration necessary, to create static websites.",
+  "keywords": [
+    "static-site-generator",
+    "static-website-generator",
+    "blog-engine",
+    "markdown",
+    "html",
+    "javascript",
+    "cheerio"
+  ],
+  "homepage": "https://github.com/4awpawz/trio/#readme",
+  "bugs": {
+    "url": "https://github.com/4awpawz/trio/issues",
+    "email": "4awpawz@gmail.com"
+  },
   "main": "index.js",
   "bin": {
     "trio": "bin/trio.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "fsweb ./public && trio-ssg"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Jeffrey Schwartz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/4awpawz/trio"
+  },
   "license": "MIT",
   "devDependencies": {
     "eslint": "^4.19.1",
