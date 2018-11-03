@@ -46,7 +46,7 @@ const commandSpecificHelp = (command) => {
     } else if (command === "s" || command === "serve") {
         console.log("Usage: trio serve");
         console.log("Aliases: s");
-        console.log("launches browser, serves application and watches source folder for changes");
+        console.log("launches browser and watches for changes");
     } else {
         console.log("Unknown command");
         generalHelp();
@@ -73,7 +73,7 @@ if (!command.length) {
 } else if (command[0] === "r" || command[0] === "release") {
     build({ environment: "release" });
 } else if (command[0] === "s" || command[0] === "serve") {
-    console.log("launching browser, serving application and watching source folder for changes");
+    console.log("launching browser and watching for changes");
     watch();
 } else {
     console.log("Unknown command");
