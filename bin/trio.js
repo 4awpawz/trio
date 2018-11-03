@@ -4,7 +4,12 @@ const createNewProject = require("../lib/tasks/create-new-project");
 const build = require("../lib/tasks/create-public");
 const watch = require("../lib/tasks/file-watcher");
 
+const log = console.log.bind(console);
 const version = "0.0.1";
+const validCommands = ["b", "build", "n", "new", "r", "release", "s", "serve"];
+const validOptions = ["-h", "--help", "-v", "--version", "-q"];
+const validSoloOptions = ["-h", "--help", "-v", "--version"];
+const validSoloCommands = ["b", "build", "r", "release", "n", "new", "s", "serve"];
 
 // get all of the options
 const options = process.argv.slice(2).filter(arg => arg[0] === "-");
@@ -14,52 +19,93 @@ const command = process.argv.slice(2).filter(arg => arg[0] !== "-");
 
 // prints generalized help to stdout
 const generalHelp = () => {
-    console.log("");
-    console.log("Usage: trio [option] | trio <command>");
-    console.log("");
-    console.log("where [option] is one of:");
-    console.log("    -v | --version (version)");
-    console.log("    -h | --help (this help)");
-    console.log("");
-    console.log("where <command> is one of:");
-    console.log("    b, build, n, new, r, release, s, serve ");
-    console.log("");
-    console.log("For command specific help, enter trio -h | --help <command>");
-    console.log("");
+    log("");
+    log("Usage: trio [option] | trio <command>");
+    log("");
+    log("where [option] is one of:");
+    log("    -v | --version (version)");
+    log("    -h | --help (this help)");
+    log("");
+    log("where <command> is one of:");
+    log("    b, build, n, new, r, release, s, serve ");
+    log("");
+    log("For command specific help, enter trio -h | --help <command>");
+    log("");
 };
 
 // prints command specific help to stdout
 const commandSpecificHelp = (command) => {
     if (command === "b" || command === "build") {
-        console.log("Usage: trio build");
-        console.log("Aliases: b");
-        console.log("builds public folder for development");
+        log("Usage: trio build");
+        log("Aliases: b");
+        log("");
+        log("builds public folder for development");
+        log("");
     } else if (command === "n" || command === "new") {
-        console.log("Usage: trio new [path/to/new/project]");
-        console.log("Aliases: n");
-        console.log("create a new empty project in path folder");
-        console.log("use -q option to clone quickstart project in path folder");
+        log("Usage: trio new [path/to/new/project]");
+        log("Aliases: n");
+        log("");
+        log("create a new empty project in path folder");
+        log("use -q option to clone quickstart project in path folder");
+        log("");
     } else if (command === "r" || command === "release") {
-        console.log("Usage: trio release");
-        console.log("Aliases: r");
-        console.log("builds public folder for release");
+        log("Usage: trio release");
+        log("Aliases: r");
+        log("");
+        log("builds public folder for release");
+        log("");
     } else if (command === "s" || command === "serve") {
-        console.log("Usage: trio serve");
-        console.log("Aliases: s");
-        console.log("launches browser and watches for changes");
+        log("Usage: trio serve");
+        log("Aliases: s");
+        log("");
+        log("launches browser and watches for changes");
+        log("");
     } else {
-        console.log("Unknown command");
         generalHelp();
     }
 };
 
-// command runner
-if (!command.length) {
-    if (options[0] === "-v" || options[0] === "--version") {
-        console.log(version);
-    } else {
-        generalHelp();
+const isCommandValid = () => {
+    const validateCommandOptionPairs = () => {
+        if (options[0] === "-h" || options[0] === "--help") {
+            return validCommands.some(command => command === command[0]);
+        } else if (options[0] === "-q" && command[0] === "n" || command[0] === "new") {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    if (options[0] && options.length === 1 &&
+        !validOptions.some(option => option === options[0])) {
+        return false;
     }
+    if (command[0] && command.length === 1 &&
+        !validCommands.some(command => command === command[0])) {
+        return false;
+    }
+    if (options[0] && command[0] && !validateCommandOptionPairs()) {
+        return false;
+    }
+    if (options[0] && !validSoloOptions.some(option => option === options[0])) {
+        return false;
+    }
+    if (command[0] && !validSoloCommands.some(command => command === command[0])) {
+        return false;
+    }
+
+    return true;
+};
+
+if (!isCommandValid()) {
+    generalHelp();
+    process.exit();
+}
+
+// command runner
+if (options[0] === "-v" || options[0] === "--version") {
+    log(version);
+    log("");
 } else if (options[0] === "-h" || options[0] === "--help") {
     if (command[0]) {
         commandSpecificHelp(command[0]);
@@ -73,9 +119,8 @@ if (!command.length) {
 } else if (command[0] === "r" || command[0] === "release") {
     build({ environment: "release" });
 } else if (command[0] === "s" || command[0] === "serve") {
-    console.log("launching browser and watching for changes");
+    log("launching browser and watching for changes");
     watch();
 } else {
-    console.log("Unknown command");
     generalHelp();
 }
