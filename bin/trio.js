@@ -3,6 +3,8 @@
 const createNewProject = require("../lib/tasks/create-new-project");
 const build = require("../lib/tasks/create-public");
 const watch = require("../lib/tasks/file-watcher");
+const { readJSONSync } = require("fs-extra");
+const configFileName = require("../lib/config/configFileName");
 
 const log = console.log.bind(console);
 const version = "0.0.1";
@@ -10,6 +12,13 @@ const validCommands = ["b", "build", "n", "new", "r", "release", "s", "serve"];
 const validOptions = ["-h", "--help", "-v", "--version", "-q"];
 const validSoloOptions = ["-h", "--help", "-v", "--version"];
 const validSoloCommands = ["b", "build", "r", "release", "n", "new", "s", "serve"];
+
+let baseUrl;
+try {
+    baseUrl = readJSONSync(configFileName, "utf8").baseUrl;
+} catch (error) {
+    baseUrl = "";
+}
 
 // get all of the options
 const options = process.argv.slice(2).filter(arg => arg[0] === "-");
@@ -120,7 +129,7 @@ if (options[0] === "-v" || options[0] === "--version") {
     build({ environment: "release" });
 } else if (command[0] === "s" || command[0] === "serve") {
     log("launching browser and watching for changes");
-    watch();
+    watch(baseUrl);
 } else {
     generalHelp();
 }
