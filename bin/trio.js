@@ -13,12 +13,25 @@ const validOptions = ["-h", "--help", "-v", "--version", "-q"];
 const validSoloOptions = ["-h", "--help", "-v", "--version"];
 const validSoloCommands = ["b", "build", "r", "release", "n", "new", "s", "serve"];
 
-let baseUrl;
-try {
-    baseUrl = readJSONSync(configFileName, "utf8").baseUrl;
-} catch (error) {
-    baseUrl = "";
-}
+const getBaseUrl = () => {
+    let baseUrl;
+    try {
+        baseUrl = readJSONSync(configFileName, "utf8").baseUrl;
+    } catch (error) {
+        baseUrl = "";
+    }
+    return baseUrl;
+};
+
+const getBuildType = () => {
+    let buildType;
+    try {
+        buildType = readJSONSync("trio.manifest.json", "utf8").buildType;
+    } catch (error) {
+        buildType = "development";
+    }
+    return buildType;
+};
 
 // get all of the options
 const options = process.argv.slice(2).filter(arg => arg[0] === "-");
@@ -122,14 +135,18 @@ if (options[0] === "-v" || options[0] === "--version") {
         generalHelp();
     }
 } else if (command[0] === "b" || command[0] === "build") {
+    process.env.TRIO_ENV_buildType = "development";
     build();
 } else if (command[0] === "n" || command[0] === "new") {
     createNewProject(command[1], options[0]);
 } else if (command[0] === "r" || command[0] === "release") {
-    build({ environment: "release" });
+    process.env.TRIO_ENV_buildType = "release";
+    build();
 } else if (command[0] === "s" || command[0] === "serve") {
     log("launching browser and watching for changes");
-    watch(baseUrl);
+    process.env.TRIO_ENV_buildType = getBuildType();
+    process.env.TRIO_ENV_baseUrl = getBaseUrl();
+    watch();
 } else {
     generalHelp();
 }
