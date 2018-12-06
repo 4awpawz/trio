@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@4awpawz/buster": "^0.2.1",
+    "autoprefixer": "^9.4.2",
     "browser-sync": "^2.24.6",
     "cheerio": "^1.0.0-rc.2",
     "chokidar": "^2.0.4",
@@ -49,6 +50,7 @@
     "js-beautify": "^1.7.5",
     "marked": "^0.4.0",
     "node-sass": "^4.9.3",
+    "postcss": "^7.0.6",
     "require-uncached": "^1.0.3"
   }
 }
