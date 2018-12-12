@@ -1,7 +1,7 @@
 {
   "name": "@4awpawz/trio",
   "version": "0.0.1",
-  "description": "Trio is a simple to use static website generator built with Node.js. It reflects its author's desire to rely exclusively upon the three pillars of the web - HTML, JavaScript and CSS - along with YAML front matter and with the least amount of configuration necessary, to create static websites.",
+  "description": "Trio is an open source toolkit for building static websites with HTML, CSS and JavaScript. With almost \"zero configuration\" required you use YAML front matter, JavaScript and Sass to quickly prototype your designs, which makes Trio the perfect tool for those who love to design in the browser.",
   "keywords": [
     "static-site-generator",
     "static-website-generator",
