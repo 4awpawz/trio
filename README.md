@@ -7,6 +7,14 @@ Trio is an open source toolkit for building static websites using HTML, CSS and 
 https://4awpawz.github.io/trio-docs-pages/
 
 
+## Changelog
+
+### v0.0.2
+
+* Addresses issue <a href="https://github.com/4awpawz/trio/issues/55">#55</a> which would cause the generation of inaccurate public paths for blog articles that have nested categories.
+
+* Addresses issue <a href="https://github.com/4awpawz/trio/issues/54">#54</a> which would cause the generation of inaccurate public paths for blog articles that have complex names.
+
 ## Copyright And License
 
 Code and documentation Copyright &copy;2018 Jeffrey Schwartz All Rights Reserved
