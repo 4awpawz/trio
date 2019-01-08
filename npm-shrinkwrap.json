@@ -5,9 +5,9 @@
   "requires": true,
   "dependencies": {
     "@4awpawz/buster": {
-      "version": "0.2.2",
-      "resolved": "https://registry.npmjs.org/@4awpawz/buster/-/buster-0.2.2.tgz",
-      "integrity": "sha512-vPHU3m3v/j8og2meqTVJb1phF4/rEgiaqgg849iljQuiwRkOM7X9SdSQEwjVDTGuEYVgIl4uXmQ7sK6FlIHgiQ==",
+      "version": "0.2.3",
+      "resolved": "https://registry.npmjs.org/@4awpawz/buster/-/buster-0.2.3.tgz",
+      "integrity": "sha512-Pw13YLq54OL9M07NOLqe69bioPvtFqzklS9UMpjHJ0g9LfmikTtI7JivU4clG/XYJIRj5Qe2ew1/78TBUmxTGw==",
       "requires": {
         "commander": "^2.15.1",
         "glob": "^7.1.2",
