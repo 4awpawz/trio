@@ -9,6 +9,10 @@ https://4awpawz.github.io/trio-docs-pages/
 
 ## Changelog
 
+### v0.0.3
+
+* Addresses issue <a href="https://github.com/4awpawz/trio/issues/56">#56</a> which adds a new configuration option, `"nojekyll"`, which when set to `true` instructs Trio to write a `.nojekyll` file to the public folder when generating a release build to completely bypass Jekyll processing on GitHub Pages.
+
 ### v0.0.2
 
 * Addresses issue <a href="https://github.com/4awpawz/trio/issues/55">#55</a> which would cause the generation of inaccurate public paths for blog articles that have nested categories.
