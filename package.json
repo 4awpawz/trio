@@ -1,6 +1,6 @@
 {
   "name": "@4awpawz/trio",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Trio is an open source toolkit for building static websites using HTML, CSS and JavaScript and requires almost \"zero configuration\". You use YAML front matter, JavaScript and Sass to quickly prototype and implement your designs, which makes Trio the perfect tool for those who love to design in the browser.",
   "keywords": [
     "static-site-generator",

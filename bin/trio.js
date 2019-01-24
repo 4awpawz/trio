@@ -7,7 +7,7 @@ const { readJSONSync } = require("fs-extra");
 const configFileName = require("../lib/config/configFileName");
 
 const log = console.log.bind(console);
-const version = "0.0.4";
+const version = "0.0.5";
 const validCommands = ["b", "build", "n", "new", "r", "release", "s", "serve"];
 const validOptions = ["-h", "--help", "-v", "--version", "-q"];
 const validSoloOptions = ["-h", "--help", "-v", "--version"];
