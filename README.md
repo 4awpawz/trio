@@ -9,6 +9,10 @@ https://4awpawz.github.io/trio-docs-pages/
 
 ## Changelog
 
+### v0.0.5
+
+* Addresses issue <a href="https://github.com/4awpawz/trio/issues/58">#58</a> which would raise an exception when generating the public destination paths for category pages.
+
 ### v0.0.4
 
 * Addresses issue <a href="https://github.com/4awpawz/trio/issues/57">#57</a> which adds the `source/etc` folder to generated projects and whose files are copied as is to the root of the public folder for both dev and release builds. This folder is intended to be used for files like favicon.ico, robots.txt, sitemaps, .etc which need to reside in the public folder.
