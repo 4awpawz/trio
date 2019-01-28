@@ -9,6 +9,10 @@ https://4awpawz.github.io/trio-docs-pages/
 
 ## Changelog
 
+### v0.0.6
+
+* Addresses issue <a href="https://github.com/4awpawz/trio/issues/59">#59</a> which would cause etc folder processing to ignore dot files.
+
 ### v0.0.5
 
 * Addresses issue <a href="https://github.com/4awpawz/trio/issues/58">#58</a> which would raise an exception when generating the public destination paths for category pages.
