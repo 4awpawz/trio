@@ -1,5 +1,12 @@
 const generate = require("./lib/generator");
+const { log } = require("./lib/utils");
 
-// main entry point with "top level" promise rejection handler
-// to prevent "unhandled promise rejection" errors
-module.exports = async () => generate().catch((e) => { console.log(e); });
+// ToDo: Validate that this is a project before proceding.
+module.exports = async (path) => {
+    if (process.env.TRIO_ENV_buildType === "release") {
+        log("building public folder for release");
+    } else {
+        log("building public folder for development");
+    }
+    await generate(path).catch((e) => { log(e); });
+};
