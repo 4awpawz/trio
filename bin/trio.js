@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+// ToDo: Validate that this is a project before proceding with any build command the user enters
 /**
  * Command line options are specified following the GNU specification
  * (see http://www.catb.org/~esr/writings/taoup/html/ch10s05.html for details).
@@ -8,21 +9,11 @@
 const createNewProject = require("../lib/tasks/create-new-project");
 const build = require("../index");
 const watch = require("../lib/tasks/file-watcher");
-const { readJSONSync } = require("fs-extra");
 const { userConfigFileName } = require("../lib/config/fileNames");
-const { log } = require("../lib/utils");
+const { log, readCache } = require("../lib/utils");
+const { version } = require("../package.json");
 
-const version = "0.0.6";
-
-const getBaseUrl = () => {
-    let baseUrl;
-    try {
-        baseUrl = readJSONSync(userConfigFileName, "utf8").baseUrl;
-    } catch (error) {
-        baseUrl = "";
-    }
-    return baseUrl;
-};
+const baseURL = readCache(userConfigFileName).baseUrl;
 
 // get all of the options and normalize combined options, such as from ["-wi]" to ["-w", "-i"]
 const options = [];
@@ -211,7 +202,7 @@ const serveCommandParams = {
     valid: async ({ options }) => {
         process.env.TRIO_ENV_buildType = "development";
         process.env.TRIO_ENV_serveInBrowser = "serve-in-browser";
-        process.env.TRIO_ENV_baseUrl = getBaseUrl();
+        process.env.TRIO_ENV_baseUrl = baseURL;
         process.env.TRIO_ENV_buildIncrementally =
             options.some(opt => opt === "-i" || opt === "--incremental-build")
                 ? "incremental-build"
@@ -234,7 +225,7 @@ const releaseCommandParams = {
     valid: async () => {
         process.env.TRIO_ENV_buildType = "release";
         process.env.TRIO_ENV_serveInBrowser = "no-serve-in-browser";
-        process.env.TRIO_ENV_baseUrl = getBaseUrl();
+        process.env.TRIO_ENV_baseUrl = baseURL;
         process.env.TRIO_ENV_buildIncrementally = "no-incremental-build";
         process.env.TRIO_ENV_watching = "no-watch";
         await build();
