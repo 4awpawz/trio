@@ -6,14 +6,10 @@
  * (see http://www.catb.org/~esr/writings/taoup/html/ch10s05.html for details).
  */
 
-const createNewProject = require("../lib/tasks/create-new-project");
-const build = require("../index");
-const watch = require("../lib/tasks/file-watcher");
+const { readJSONSync } = require("fs-extra");
 const { userConfigFileName } = require("../lib/config/fileNames");
-const { log, readCache } = require("../lib/utils");
+const log = require("../lib/utils/log");
 const { version } = require("../package.json");
-
-const baseURL = readCache(userConfigFileName).baseUrl;
 
 // get all of the options and normalize combined options, such as from ["-wi]" to ["-w", "-i"]
 const options = [];
@@ -150,7 +146,10 @@ const commandSpecificHelp = (command) => {
 const newCommandParams = {
     opts: [],
     validate: ({ commands }) => commands.length === 2,
-    valid: ({ commands }) => createNewProject(commands[1]),
+    valid: ({ commands }) => {
+        const createNewProject = require("../lib/tasks/create-new-project");
+        createNewProject(commands[1]);
+    },
     invalid: () => generalHelp()
 };
 
@@ -168,6 +167,8 @@ const buildCommandParams = {
         return true;
     },
     valid: async ({ options }) => {
+        const build = require("../index");
+        const watch = require("../lib/tasks/file-watcher");
         process.env.TRIO_ENV_buildType = "development";
         process.env.TRIO_ENV_serveInBrowser = "no-serve-in-browser";
         process.env.TRIO_ENV_buildIncrementally =
@@ -200,6 +201,10 @@ const serveCommandParams = {
         return true;
     },
     valid: async ({ options }) => {
+        const build = require("../index");
+        const watch = require("../lib/tasks/file-watcher");
+        const baseURL = readJSONSync(userConfigFileName, "utf-8").baseUrl;
+        console.log("baseURL", baseURL);
         process.env.TRIO_ENV_buildType = "development";
         process.env.TRIO_ENV_serveInBrowser = "serve-in-browser";
         process.env.TRIO_ENV_baseUrl = baseURL;
@@ -223,6 +228,9 @@ const releaseCommandParams = {
         return true;
     },
     valid: async () => {
+        const build = require("../index");
+        const baseURL = readJSONSync(userConfigFileName, "utf-8").baseUrl;
+        console.log("baseURL", baseURL);
         process.env.TRIO_ENV_buildType = "release";
         process.env.TRIO_ENV_serveInBrowser = "no-serve-in-browser";
         process.env.TRIO_ENV_baseUrl = baseURL;
