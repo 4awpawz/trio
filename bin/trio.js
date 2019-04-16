@@ -13,20 +13,26 @@ const { version } = require("../package.json");
 
 // get all of the options and normalize combined options, such as from ["-wi]" to ["-w", "-i"]
 const options = [];
-process.argv.slice(2).filter(arg => arg[0] === "-").reduce((accum, value) => {
-    if (value.startsWith("--")) {
-        accum.push(value);
-    } else {
-        value.split("").forEach(item => {
-            if (item !== "-") {
-                accum.push(`-${item}`);
-            }
-        });
-    }
-}, options);
+process.argv.slice(2)
+    .filter(arg => arg[0] === "-")
+    .reduce((accum, value) => {
+        if (value.startsWith("--")) {
+            accum.push(value);
+            return accum;
+        } else {
+            [...value].forEach(item => {
+                if (item !== "-") {
+                    accum.push(`-${item}`);
+                }
+            });
+            return accum;
+        }
+    }, options);
 
 // get all of the commands and arguments
-const commands = process.argv.slice(2).filter(arg => arg[0] !== "-");
+const commands = process.argv
+    .slice(2)
+    .filter(arg => arg[0] !== "-");
 
 // prints generalized help to stdout
 const generalHelp = () => {
@@ -50,7 +56,8 @@ const generalHelp = () => {
 const commandSpecificHelp = (command) => {
     if (command === "b" || command === "build") {
         log("NAME");
-        log("       trio-build - Build the project for development.");
+        // log("       trio-build - Build the project for development.");
+        log("       trio-build - Builds the project.");
         log("");
         log("SYNOPSIS");
         log("       trio build <options>");
@@ -58,7 +65,7 @@ const commandSpecificHelp = (command) => {
         log("       alias: trio b");
         log("");
         log("DESCRIPTION");
-        log("       This command builds the project for development.");
+        log("       This command builds the project.");
         log("");
         log("           trio build");
         log("           trio build [-w | --watch]");
@@ -154,29 +161,37 @@ const newCommandParams = {
 };
 
 const buildCommandParams = {
-    opts: ["-w", "--watch", "-i", "--incremental-build"],
+    opts: ["-w", "--watch", "-i", "--incremental-build", "-s", "--serve"],
     validate: function ({ commands, options }) {
-        if (commands.length > 1 || options.length > 2) {
+        console.log("this.opts", this.opts);
+        if (commands.length > 1 || options.length > 3) {
             return false;
         }
-        if (options.length > 0) {
-            if (!options.every(opt => this.opts.includes(opt))) {
-                return false;
-            }
+        if (options.length > 0 && !options.every(opt => this.opts.includes(opt))) {
+            return false;
         }
         return true;
     },
     valid: async ({ options }) => {
+        // ToDo: modify to serve if user includes either option -s or --serve and modify to watch if user includes either option
         const build = require("../index");
         const watch = require("../lib/tasks/file-watcher");
+        const baseURL = readJSONSync(userConfigFileName, "utf-8").baseUrl;
+        console.log("baseURL", baseURL);
+        process.env.TRIO_ENV_baseUrl = baseURL;
+        // ToDo: is this environment variable even relevant now?
         process.env.TRIO_ENV_buildType = "development";
-        process.env.TRIO_ENV_serveInBrowser = "no-serve-in-browser";
+        process.env.TRIO_ENV_serveInBrowser =
+            options.some(opt => opt === "-s" || opt === "--serve")
+                ? "serve-in-browser"
+                : "no-serve-in-browser";
         process.env.TRIO_ENV_buildIncrementally =
             options.some(opt => opt === "-i" || opt === "--incremental-build")
                 ? "incremental-build"
                 : "no-incremental-build";
         process.env.TRIO_ENV_watching =
-            options.some(opt => opt === "-w" || opt === "--watch")
+            options.some(opt => opt === "-s" || opt === "--serve" ||
+                opt === "-w" || opt === "--watch")
                 ? "watch"
                 : "no-watch";
         await build();
@@ -188,41 +203,47 @@ const buildCommandParams = {
 };
 
 const serveCommandParams = {
-    opts: ["-i", "--incremental-build"],
+    // ToDo: modify by removing build and only serving
+    // opts: ["-i", "--incremental-build"],
     validate: function ({ commands, options }) {
-        if (commands.length > 1 || options.length > 1) {
+        if (commands.length > 1 || options.length > 0) {
             return false;
         }
-        if (options.length > 0) {
-            if (!this.opts.includes(options[0])) {
-                return false;
-            }
-        }
+        // if (options.length > 0) {
+        //     if (!this.opts.includes(options[0])) {
+        //         return false;
+        //     }
+        // }
         return true;
     },
     valid: async ({ options }) => {
-        const build = require("../index");
-        const watch = require("../lib/tasks/file-watcher");
+        // const build = require("../index");
+        // const watch = require("../lib/tasks/file-watcher");
+        const browserSync = require("../lib/utils/browserSync");
         const baseURL = readJSONSync(userConfigFileName, "utf-8").baseUrl;
         console.log("baseURL", baseURL);
-        process.env.TRIO_ENV_buildType = "development";
-        process.env.TRIO_ENV_serveInBrowser = "serve-in-browser";
         process.env.TRIO_ENV_baseUrl = baseURL;
-        process.env.TRIO_ENV_buildIncrementally =
-            options.some(opt => opt === "-i" || opt === "--incremental-build")
-                ? "incremental-build"
-                : "no-incremental-build";
-        process.env.TRIO_ENV_watching = "watch";
-        await build();
-        await watch();
+        // process.env.TRIO_ENV_buildType = "development";
+        process.env.TRIO_ENV_serveInBrowser = "serve-in-browser";
+        // process.env.TRIO_ENV_buildIncrementally =
+        //     options.some(opt => opt === "-i" || opt === "--incremental-build")
+        //         ? "incremental-build"
+        //         : "no-incremental-build";
+        // process.env.TRIO_ENV_watching = "watch";
+        // await build();
+        // await watch();
+        browserSync();
     },
     invalid: () => generalHelp()
 };
 
 const releaseCommandParams = {
-    opts: [],
-    validate: ({ commands, options }) => {
-        if (commands.length > 1 || options.length > 0) {
+    opts: ["-b", "--cache-bust"],
+    validate: function ({ commands, options }) {
+        if (commands.length > 1 || options.length > 1) {
+            return false;
+        }
+        if (options.length > 0 && !options.every(opt => this.opts.includes(opt))) {
             return false;
         }
         return true;
@@ -231,11 +252,15 @@ const releaseCommandParams = {
         const build = require("../index");
         const baseURL = readJSONSync(userConfigFileName, "utf-8").baseUrl;
         console.log("baseURL", baseURL);
+        process.env.TRIO_ENV_baseUrl = baseURL;
         process.env.TRIO_ENV_buildType = "release";
         process.env.TRIO_ENV_serveInBrowser = "no-serve-in-browser";
-        process.env.TRIO_ENV_baseUrl = baseURL;
         process.env.TRIO_ENV_buildIncrementally = "no-incremental-build";
         process.env.TRIO_ENV_watching = "no-watch";
+        process.env.TRIO_ENV_cacheBust =
+        options.some(opt => opt === "-b" || opt === "--cache-bust")
+            ? "cache-bust"
+            : "no-cache-bust";
         await build();
     },
     invalid: () => generalHelp()
