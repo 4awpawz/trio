@@ -6,10 +6,10 @@
  * (see http://www.catb.org/~esr/writings/taoup/html/ch10s05.html for details).
  */
 
-const { readJSONSync } = require("fs-extra");
-const { userConfigFileName } = require("../lib/config/fileNames");
 const log = require("../lib/utils/log");
 const { version } = require("../package.json");
+
+process.env.TRIO_ENV_version = version;
 
 // get all of the options and normalize combined options, such as from ["-wi]" to ["-w", "-i"]
 const options = [];
@@ -37,16 +37,14 @@ const commands = process.argv
 // prints generalized help to stdout
 const generalHelp = () => {
     log("");
-    log("Usage: trio [option] | trio <command> [option]");
+    log("Usage: trio [option] | trio <command> [args]");
     log("");
     log("where [option] is one of:");
     log("    -v | --version (version)");
     log("    -h | --help (this help)");
-    log("    -i | --incremental-build (incremental build)");
-    log("    -w | --watch (watcher)");
     log("");
     log("where <command> is one of:");
-    log("    n, new, b, build, s, serve, r, release,");
+    log("    n, new, b, build, r, release, s, serve");
     log("");
     log("For command specific help, enter trio -h | --help <command>");
     log("");
@@ -56,7 +54,6 @@ const generalHelp = () => {
 const commandSpecificHelp = (command) => {
     if (command === "b" || command === "build") {
         log("NAME");
-        // log("       trio-build - Build the project for development.");
         log("       trio-build - Builds the project.");
         log("");
         log("SYNOPSIS");
@@ -68,26 +65,33 @@ const commandSpecificHelp = (command) => {
         log("       This command builds the project.");
         log("");
         log("           trio build");
-        log("           trio build [-w | --watch]");
         log("           trio build [-i | --incremental-build]");
-        log("           trio build [-w | --watch] [-i | --incremental-build]");
+        log("           trio build [-w | --watch]");
+        log("           trio build [-s | --serve]");
+        log("           trio build [-i | --incremental-build] [-w | --watch] [-s | -serve]");
         log("");
         log("       In the first form, it builds the entire project.");
         log("");
-        log("       In the second form, it builds the entire project while watching for changes to files");
+        log("       In the second form, it builds the project incrementally.");
+        log("");
+        log("       In the third form, it builds the entire project while watching for changes to files");
         log("       in the source folder.");
         log("");
-        log("       In the third form, it builds the project incrementally.");
+        log("       In the fourth form, it builds the entire project and serves the project");
+        log("       in the default browser.");
         log("");
-        log("       In the fourth form, it builds the project incrementally while watching for changes to");
-        log("       files in the source folder.");
+        log("       In the fifth form, it builds the project incrementally while watching for changes to");
+        log("       files in the source folder and serves the project in the default browser.");
         log("");
         log("OPTIONS");
         log("       -i | --incremental-build");
         log("           Builds the project incrementally.");
         log("");
         log("       -w | --watch");
-        log("           Builds the project while watching for changes to files in the source folder.");
+        log("           Watches for changes to files in the source folder.");
+        log("");
+        log("       -s | --serve");
+        log("           Serves the project in the default browser.");
         log("");
     } else if (command === "n" || command === "new") {
         log("NAME");
@@ -115,31 +119,32 @@ const commandSpecificHelp = (command) => {
         log("DESCRIPTION");
         log("       This command builds a project for release.");
         log("");
+        log("           trio release");
+        log("           trio release [-b | --cache-bust]");
+        log("");
+        log("       In the first form, it builds the entire project for release.");
+        log("");
+        log("       In the second form, it builds the entire project for release and applies cache busting");
+        log("       to the generated project.");
+        log("");
+        log("OPTIONS");
+        log("       -b | --cache-bust");
+        log("           Applies cache busting to the generated project.");
+        log("");
     } else if (command === "s" || command === "serve") {
         log("NAME");
         log("       trio-serve - Serves the project in the default browser.");
         log("");
         log("SYNOPSIS");
-        log("       trio serve <options>");
+        log("       trio serve");
         log("");
         log("       alias: s");
         log("");
         log("DESCRIPTION");
-        log("       This command builds the project for development while watching for changes to files");
-        log("       in the source folder and serves the project in the default browser.");
+        log("       This command only serves the project in the default browser. It can be used for");
+        log("       giving demonstrations.");
         log("");
         log("           trio serve");
-        log("           trio serve [-i | --incremental-build]");
-        log("");
-        log("       In the first form, it builds the entire project while watching for changes to files ");
-        log("       in the source folder and serves the project in the default browser.");
-        log("");
-        log("       In the second form, it builds the project incrementally while watching for changes");
-        log("       to files in the source folder and serves the project in the default browser.");
-        log("");
-        log("OPTIONS");
-        log("       -i | --incremental-build");
-        log("           Builds the project incrementally.");
         log("");
     } else {
         generalHelp();
@@ -163,7 +168,6 @@ const newCommandParams = {
 const buildCommandParams = {
     opts: ["-w", "--watch", "-i", "--incremental-build", "-s", "--serve"],
     validate: function ({ commands, options }) {
-        console.log("this.opts", this.opts);
         if (commands.length > 1 || options.length > 3) {
             return false;
         }
@@ -173,24 +177,21 @@ const buildCommandParams = {
         return true;
     },
     valid: async ({ options }) => {
-        // ToDo: modify to serve if user includes either option -s or --serve and modify to watch if user includes either option
         const build = require("../index");
         const watch = require("../lib/tasks/file-watcher");
-        const baseURL = readJSONSync(userConfigFileName, "utf-8").baseUrl;
-        console.log("baseURL", baseURL);
-        process.env.TRIO_ENV_baseUrl = baseURL;
-        // ToDo: is this environment variable even relevant now?
         process.env.TRIO_ENV_buildType = "development";
         process.env.TRIO_ENV_serveInBrowser =
-            options.some(opt => opt === "-s" || opt === "--serve")
+            options.some(opt =>
+                opt === "-s" || opt === "--serve")
                 ? "serve-in-browser"
                 : "no-serve-in-browser";
         process.env.TRIO_ENV_buildIncrementally =
-            options.some(opt => opt === "-i" || opt === "--incremental-build")
+            options.some(opt =>
+                opt === "-i" || opt === "--incremental-build")
                 ? "incremental-build"
                 : "no-incremental-build";
         process.env.TRIO_ENV_watching =
-            options.some(opt => opt === "-s" || opt === "--serve" ||
+            options.some(opt =>
                 opt === "-w" || opt === "--watch")
                 ? "watch"
                 : "no-watch";
@@ -203,35 +204,16 @@ const buildCommandParams = {
 };
 
 const serveCommandParams = {
-    // ToDo: modify by removing build and only serving
-    // opts: ["-i", "--incremental-build"],
     validate: function ({ commands, options }) {
         if (commands.length > 1 || options.length > 0) {
             return false;
         }
-        // if (options.length > 0) {
-        //     if (!this.opts.includes(options[0])) {
-        //         return false;
-        //     }
-        // }
         return true;
     },
     valid: async ({ options }) => {
-        // const build = require("../index");
-        // const watch = require("../lib/tasks/file-watcher");
         const browserSync = require("../lib/utils/browserSync");
-        const baseURL = readJSONSync(userConfigFileName, "utf-8").baseUrl;
-        console.log("baseURL", baseURL);
-        process.env.TRIO_ENV_baseUrl = baseURL;
-        // process.env.TRIO_ENV_buildType = "development";
+        process.env.TRIO_ENV_buildType = "serve";
         process.env.TRIO_ENV_serveInBrowser = "serve-in-browser";
-        // process.env.TRIO_ENV_buildIncrementally =
-        //     options.some(opt => opt === "-i" || opt === "--incremental-build")
-        //         ? "incremental-build"
-        //         : "no-incremental-build";
-        // process.env.TRIO_ENV_watching = "watch";
-        // await build();
-        // await watch();
         browserSync();
     },
     invalid: () => generalHelp()
@@ -250,17 +232,15 @@ const releaseCommandParams = {
     },
     valid: async () => {
         const build = require("../index");
-        const baseURL = readJSONSync(userConfigFileName, "utf-8").baseUrl;
-        console.log("baseURL", baseURL);
-        process.env.TRIO_ENV_baseUrl = baseURL;
         process.env.TRIO_ENV_buildType = "release";
         process.env.TRIO_ENV_serveInBrowser = "no-serve-in-browser";
         process.env.TRIO_ENV_buildIncrementally = "no-incremental-build";
         process.env.TRIO_ENV_watching = "no-watch";
         process.env.TRIO_ENV_cacheBust =
-        options.some(opt => opt === "-b" || opt === "--cache-bust")
-            ? "cache-bust"
-            : "no-cache-bust";
+            options.some(opt =>
+                opt === "-b" || opt === "--cache-bust")
+                ? "cache-bust"
+                : "no-cache-bust";
         await build();
     },
     invalid: () => generalHelp()
