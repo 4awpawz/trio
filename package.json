@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@4awpawz/buster": "^0.2.3",
-    "autoprefixer": "^9.4.2",
+    "autoprefixer": "^9.5.1",
     "browser-sync": "^2.24.6",
     "cheerio": "^1.0.0-rc.2",
     "chokidar": "^2.0.4",
