@@ -62,7 +62,7 @@ const commandSpecificHelp = (command) => {
         log("       alias: trio b");
         log("");
         log("DESCRIPTION");
-        log("       This command builds your site.");
+        log("       This command builds your site targeting the public folder.");
         log("");
         log("           trio build");
         log("           trio build [-i | --incremental-build]");
@@ -113,7 +113,7 @@ const commandSpecificHelp = (command) => {
         log("");
     } else if (command === "r" || command === "release") {
         log("NAME");
-        log("       trio-release - Build your site for release.");
+        log("       trio-release - Builds your site for release.");
         log("");
         log("SYNOPSIS");
         log("       trio release");
@@ -121,7 +121,7 @@ const commandSpecificHelp = (command) => {
         log("       alias: r");
         log("");
         log("DESCRIPTION");
-        log("       This command builds your site for release.");
+        log("       This command builds your site for release targeting the release folder.");
         log("");
         log("           trio release");
         log("           trio release [-b | --cache-bust]");
@@ -147,6 +147,15 @@ const commandSpecificHelp = (command) => {
         log("       This command serves the site in the default browser.");
         log("");
         log("           trio serve");
+        log("           trio serve -r");
+        log("");
+        log("       In the first form, it serves your site from the public folder");
+        log("");
+        log("       In the second form, it serves your site from the release folder");
+        log("");
+        log("OPTIONS");
+        log("       -r | --release");
+        log("           Serves your site from the release folder.");
         log("");
     } else {
         generalHelp();
@@ -206,16 +215,26 @@ const buildCommandParams = {
 };
 
 const serveCommandParams = {
+    opts: ["-r", "--release"],
     validate: function ({ commands, options }) {
-        if (commands.length > 1 || options.length > 0) {
+        if (commands.length > 1 || options.length > 1) {
+            return false;
+        }
+        if (options.length > 0 && !options.every(opt => this.opts.includes(opt))) {
             return false;
         }
         return true;
     },
     valid: async ({ options }) => {
-        const browserSync = require("../lib/utils/browserSync");
-        process.env.TRIO_ENV_buildType = "serve";
         process.env.TRIO_ENV_serveInBrowser = "serve-in-browser";
+        if (options.length === 1) {
+            process.env.TRIO_ENV_buildType = "release";
+            // note: config is required here just for side effects, specifically so that it
+            // correctly sets the public folder to either "./public" or "./release", which
+            // BrowserSync will use as the site's base directory
+            require("../lib/config");
+        }
+        const browserSync = require("../lib/utils/browserSync");
         browserSync();
     },
     invalid: () => generalHelp()
@@ -233,7 +252,6 @@ const releaseCommandParams = {
         return true;
     },
     valid: async () => {
-        const build = require("../index");
         process.env.TRIO_ENV_buildType = "release";
         process.env.TRIO_ENV_serveInBrowser = "no-serve-in-browser";
         process.env.TRIO_ENV_buildIncrementally = "no-incremental-build";
@@ -243,6 +261,7 @@ const releaseCommandParams = {
                 opt === "-b" || opt === "--cache-bust")
                 ? "cache-bust"
                 : "no-cache-bust";
+        const build = require("../index");
         await build();
     },
     invalid: () => generalHelp()
