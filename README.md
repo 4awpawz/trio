@@ -4,6 +4,10 @@ Trio is an open source toolkit for building static websites using HTML, CSS and 
 
 ## Documentation
 
+### v1
+https://4awpawz.github.io/gettriossg/
+
+### Prior to v1
 https://4awpawz.github.io/trio-docs-pages/
 
 
