@@ -1,7 +1,7 @@
 {
   "name": "@4awpawz/trio",
-  "version": "0.0.6",
-  "description": "Trio is an open source toolkit for building static websites using HTML, CSS and JavaScript and requires almost \"zero configuration\". You use YAML front matter, JavaScript and Sass to quickly prototype and implement your designs, which makes Trio the perfect tool for those who love to design in the browser.",
+  "version": "1.0.0-rc.1",
+  "description": "Trio is an open source static site generator built with Node. Using its command-line interface, you create new static site projects, and incrementally build and run your sites in the browser. Trio's unique approach to extending your pages with dynamic content using its tag-based callback mechanism makes it stand out from other static site generators, which rely on either templating engines or frameworks.",
   "keywords": [
     "static-site-generator",
     "static-website-generator",
@@ -9,16 +9,14 @@
     "website-generator",
     "blog-engine",
     "blog-aware",
+    "markup",
     "markdown",
     "html",
     "javascript",
-    "cheerio"
+    "cheerio",
+    "browsersync"
   ],
-  "homepage": "https://github.com/4awpawz/trio/#readme",
-  "bugs": {
-    "url": "https://github.com/4awpawz/trio/issues",
-    "email": "4awpawz@gmail.com"
-  },
+  "homepage": "https://4awpawz.github.io/gettriossg",
   "main": "index.js",
   "bin": {
     "trio": "bin/trio.js"
@@ -30,6 +28,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/4awpawz/trio"
+  },
+  "bugs": {
+    "url": "https://github.com/4awpawz/trio/issues",
+    "email": "4awpawz@gmail.com"
   },
   "license": "MIT",
   "devDependencies": {
