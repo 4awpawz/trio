@@ -1,6 +1,8 @@
 # Welcome to Trio
 
-Trio is an open source toolkit for building static websites using HTML, CSS and JavaScript and requires almost "zero configuration". You use YAML front matter, JavaScript and Sass to quickly prototype and implement your designs, which makes Trio the perfect tool for those who love to design in the browser.
+Trio is an open source static site generator built with Node. Using its command-line interface, you create new static site projects, and incrementally build and run your sites in the browser.
+
+Trio's unique approach to extending your pages with dynamic content using its tag-based callback mechanism makes it stand out from other static site generators, which rely on either templating engines or frameworks.
 
 ## Documentation
 
@@ -8,10 +10,23 @@ Trio is an open source toolkit for building static websites using HTML, CSS and 
 https://4awpawz.github.io/gettriossg/
 
 ### Prior to v1
+
+<mark>Please note that earlier versions are no longer supported.</mark>
+
 https://4awpawz.github.io/trio-docs-pages/
 
 
 ## Changelog
+
+### v1.0.0-rc.1
+
+This marks the first release candidate for Trio v1. The journey from v0.0.6, which served as a solid proof of concept, to here, now, has been a long and often difficult one, but in the end I can truly say that it has been a <em>labor of love</em>. I hope you all enjoy it.
+
+#### Highlights!
+
+* Integrity Checking checks your project's chains of dependencies and notifies you when assets can't be resolved.
+
+* Incremental Build reduces project build times by limiting processing to only stale assets.
 
 ### v0.0.6
 
