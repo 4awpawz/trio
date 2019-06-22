@@ -20,7 +20,7 @@ https://4awpawz.github.io/trio-docs-pages/
 
 ### v1.0.0-rc.1
 
-This marks the first release candidate for Trio v1. The journey from v0.0.6, which served as a solid proof of concept, to here, now, has been a long and often difficult one, but in the end I can truly say that it has been a <em>labor of love</em>. I hope you all enjoy it.
+This marks the first release candidate for Trio v1. The journey from v0.0.6, which served as a solid proof of concept, to now, has been a long and sometimes difficult one, but in the end I can truly say that it has been a labor of love. I hope you all enjoy it.
 
 #### Highlights!
 
