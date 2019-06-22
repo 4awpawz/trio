@@ -18,7 +18,7 @@ https://4awpawz.github.io/trio-docs-pages/
 
 ## Changelog
 
-### v1.0.0-rc.1
+### v1.0.0-rc.1 (IKIGAI) 
 
 This marks the first release candidate for Trio v1. The journey from v0.0.6, which served as a solid proof of concept, to now, has been a long and sometimes difficult one, but in the end I can truly say that it has been a labor of love. I hope you all enjoy it.
 
