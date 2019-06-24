@@ -28,6 +28,8 @@ This marks the first release candidate for Trio v1. The journey from v0.0.6, whi
 
 * Incremental Build reduces project build times by limiting processing to only stale assets.
 
+* Tag Based JavaScript Callbacks replace the template engines and frameworks that other static site generators require you to use to extend your composites.
+
 ### v0.0.6
 
 * Addresses issue <a href="https://github.com/4awpawz/trio/issues/59">#59</a> which would cause etc folder processing to ignore dot files.
