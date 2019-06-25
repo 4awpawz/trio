@@ -16,7 +16,7 @@
     "cheerio",
     "browsersync"
   ],
-  "homepage": "https://4awpawz.github.io/gettriossg",
+  "homepage": "https://gettriossg.com",
   "main": "index.js",
   "bin": {
     "trio": "bin/trio.js"
