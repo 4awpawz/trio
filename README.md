@@ -7,14 +7,12 @@ Trio's unique approach to extending your pages with dynamic content using its ta
 ## Documentation
 
 ### v1
-https://4awpawz.github.io/gettriossg/
+
+https://gettriossg.com
 
 ### Prior to v1
 
 <mark>Please note that earlier versions are no longer supported.</mark>
-
-https://4awpawz.github.io/trio-docs-pages/
-
 
 ## Changelog
 
@@ -28,7 +26,7 @@ This marks the first release candidate for Trio v1. The journey from v0.0.6, whi
 
 * Incremental Build reduces project build times by limiting processing to only stale assets.
 
-* Tag Based JavaScript Callbacks replace the template engines and frameworks that other static site generators require you to use to extend your composites.
+* Tag-Based JavaScript Callbacks replace the template engines and frameworks that other static site generators require you to use to extend your composites.
 
 ### v0.0.6
 
