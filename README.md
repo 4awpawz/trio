@@ -16,6 +16,10 @@ https://gettriossg.com
 
 ## Changelog
 
+### v1.0.0-rc.3 (IKIGAI)
+
+* Addresses issue <a href="https://github.com/4awpawz/trio/issues/73">#73</a> which would cause dependency resolutiion to fail if tag-based callbacks are declared with their `.js` file extensions.
+
 ### v1.0.0-rc.2 (IKIGAI)
 
 * Addresses issue <a href="https://github.com/4awpawz/trio/issues/72">#72</a> which would cause include assets with `.html` file extension to be wrongly interpreted as markdown files.
