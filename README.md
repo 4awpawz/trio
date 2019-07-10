@@ -16,9 +16,17 @@ https://gettriossg.com
 
 ## Changelog
 
+### v1.0.0-rc.5 (IKIGAI)
+
+#### Breaking Changes
+
+* The metada `id` property has been eliminated due to difficulty in maintaining its integrity when incremental building. In its place, users should now use `url` instead.
+
+* Callback arguement `$` has been renamed to `$page` for clarity and consistency.
+ 
 ### v1.0.0-rc.4 (IKIGAI)
 
-* Addresses issue <a href="https://github.com/4awpawz/trio/issues/74">#74</a> which would cause garbage collection to fail to identify the **original** blog article to delete when the user changes the blog article's category.
+* Addresses issue <a href="https://github.com/4awpawz/trio/issues/74">#74</a> which would cause garbage collection to fail to identify the _original_ blog article to delete when the user changes the blog article's category.
 
 ### v1.0.0-rc.3 (IKIGAI)
 
