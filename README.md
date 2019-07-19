@@ -18,11 +18,15 @@ https://gettriossg.com
 
 ### v1.0.0-rc.5 (IKIGAI)
 
+* For callbacks that throw exceptions, Trio would catch the exceptions and print just their message to the console, leaving it up to the user to determine which module actually threw the exception. Now, when callbacks throw exceptions, Trio will also print their module names along with their messages to the console.
+
 #### Breaking Changes
 
-* The metada `id` property has been eliminated due to difficulty in maintaining its integrity when incremental building. In its place, users should now use `url` instead.
+* Fragment properties `destPath` (the generated page's target file path) and `url` (the generated page's URL) are now generated in all lowercase.
 
-* Callback arguement `$` has been renamed to `$page` for clarity and consistency.
+* Trio no longer generates a unique `id` property for fragments due to the expense in terms of the development time required to maintain their integrity during incremental builds. In its place, users should now use the fragment's `url` property, which is intrinsically always unique.
+
+* Callback argument `$` has been renamed to `$page` for clarity and consistency.
  
 ### v1.0.0-rc.4 (IKIGAI)
 
@@ -30,7 +34,7 @@ https://gettriossg.com
 
 ### v1.0.0-rc.3 (IKIGAI)
 
-* Addresses issue <a href="https://github.com/4awpawz/trio/issues/73">#73</a> which would cause dependency resolutiion to fail if tag-based callbacks are declared with their `.js` file extensions.
+* Addresses issue <a href="https://github.com/4awpawz/trio/issues/73">#73</a> which would cause dependency resolution to fail if tag-based callbacks are declared with their `.js` file extensions.
 
 ### v1.0.0-rc.2 (IKIGAI)
 
