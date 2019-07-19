@@ -1,6 +1,6 @@
 {
   "name": "@4awpawz/trio",
-  "version": "1.0.0-rc.4",
+  "version": "1.0.0-rc.5",
   "description": "Trio is an open source static site generator built with Node. Using its command-line interface, you create new static site projects, and incrementally build and run your sites in the browser. Trio's unique approach to extending your pages with dynamic content using its tag-based callback mechanism makes it stand out from other static site generators, which rely on either templating engines or frameworks.",
   "keywords": [
     "static-site-generator",
