@@ -16,6 +16,16 @@ https://gettriossg.com
 
 ## Changelog
 
+### v1.0.0-rc.6 (IKIGAI)
+
+#### Highlights!
+
+* Addresses issue <a href="https://github.com/4awpawz/trio/issues/79">#79</a> which formalizes blog archive pages into the project just like blog tag and blog category pages are.
+
+#### Bugs
+
+* Addresses issue <a href="https://github.com/4awpawz/trio/issues/81">#81</a> which would cause destination paths for blog subsidiary pages and archive pages to be generated incorrectly.
+
 ### v1.0.0-rc.5 (IKIGAI)
 
 * For callbacks that throw exceptions, Trio would catch the exceptions and print just their message to the console, leaving it up to the user to determine which module actually threw the exception. Now, when callbacks throw exceptions, Trio will also print their module names along with their messages to the console.
