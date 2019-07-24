@@ -1,0 +1,25 @@
+.article-image {
+    display: block;
+    width: 100%;
+
+    &--pushed-down {
+        margin-top: 3rem;
+    }
+
+    &-container {
+        width: 100%;
+        padding-top: 56.25%; // maintain 16:9 aspect ration
+        position: relative;
+        background-color: #eee;
+    }
+
+    &__text {
+        position: absolute;
+        top: calc(50% - (2.5ch * .5));
+        left: calc(50% - (5ch * .5));
+        font-size: 2.5rem;
+        font-family: monospace;
+        color: $image-mark-color;
+        margin: 0;
+    }
+}

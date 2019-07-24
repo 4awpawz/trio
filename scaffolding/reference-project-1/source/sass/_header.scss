@@ -1,0 +1,56 @@
+.header {
+    position: sticky;
+    height: $header-height;
+    padding: .5rem 0;
+    line-height: calc(#{$header-height} - 1rem);
+    background-color: $default-header-bg-color;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    margin-bottom: $header-height;
+
+    &--no-bottom-margin {
+        margin-bottom: 0;
+    }
+
+    &__container {
+        display: flex;
+        flex-flow: row nowrap
+    }
+
+    &__brand {
+        flex: 0 0 1;
+        font-family: $serif-font;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #fff;
+        margin: 0;
+        text-decoration: none;
+    }
+
+    &__nav {
+        flex: 0 0 1;
+        display: flex;
+        margin-left: auto;
+        list-style: none;
+        justify-self: flex-end;
+
+        &-item {
+            font-size: 1.1rem;
+            margin: 0 .5rem;
+
+            &-link {
+                text-transform: uppercase;
+                text-decoration: none;
+                color: rgba(white, 0.8);
+                &:hover {
+                    text-decoration: underline;
+                }
+                &--current {
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+}

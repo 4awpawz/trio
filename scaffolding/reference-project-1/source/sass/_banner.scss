@@ -1,0 +1,20 @@
+.banner {
+    width: 100vw;
+    height: 30vh;
+    background-color: #eee;
+    display: flex;
+
+    &__text {
+        align-self: center;
+        margin: 0 auto;
+        font-size: 2.5rem;
+        font-family: monospace;
+        color: $image-mark-color;
+    }
+}
+
+@media (min-width: 576px) {
+    .banner {
+        height: 50vh;
+    }
+}

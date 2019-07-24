@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title data-trio-callback="setDocTitle">Document</title>
+    <link data-trio-link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <header data-trio-include="header.html" data-trio-callback="header"
+    class="header header--no-bottom-margin"></header>
+    <main class="article">
+        <section class="banner">
+            <p class="banner__text">Banner</p>
+        </section>
+        <article data-trio-callback="articlePage" class="container blog__container">
+            <section class="article-image article-image--pushed-down article-image-container">
+                <p class="article-image__text" title="16:9 image placeholder">Image</p>
+            </section>
+            <h1 class="article__title"></h1>
+            <div class="article__date"></div>
+            <section class="article__content"></section>
+        </article>
+        <section class="container blog__container related-articles">
+            <h2 class="related-articles__title">Related Articles</h2>
+            <ul data-trio-callback="relatedArticlesList" class="related-articles__list"></ul>
+        </section>
+        <section class="container blog__container categories">
+            <h2 class="categories__title">Categories</h2>
+            <ul data-trio-callback="categoriesList" class="categories__list"></ul>
+        </section>
+        <section class="container blog__container archive-link-container">
+            <a class="archive-link" href="/blog/archive">Archive</a>
+        </section>
+        <section data-trio-callback="articleNavigator" class="container blog__container navigator"></section>
+    </main>
+    <footer data-trio-include="footer.html"></footer>
+</body>
+</html>

@@ -1,0 +1,24 @@
+.category {
+    &__container {
+        width: $blog-container-width;
+    }
+
+    &__title {
+        font-size: 2.5rem;
+    }
+
+    &__list {
+        list-style: none;
+
+        &-item-link {
+            text-decoration: none;
+            font-size: 1.5rem;
+            color: #000;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+}

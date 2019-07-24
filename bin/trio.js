@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// ToDo: Validate that this is a project before proceding with any build command the user enters
+// ToDo: Validate that this is a project before proceeding with any build command the user enters
 /**
  * Command line options are specified following the GNU specification
  * (see http://www.catb.org/~esr/writings/taoup/html/ch10s05.html for details).
@@ -37,16 +37,16 @@ const commands = process.argv
 // prints generalized help to stdout
 const generalHelp = () => {
     log("");
-    log("Usage: trio [option] | trio <command> [args]");
+    log("Usage: trio [option] | trio [command] [args]");
     log("");
     log("where [option] is one of:");
     log("    -v | --version (version)");
     log("    -h | --help (this help)");
     log("");
-    log("where <command> is one of:");
+    log("where [command] is one of:");
     log("    n, new, b, build, r, release, s, serve");
     log("");
-    log("For command specific help, enter trio -h | --help <command>");
+    log("For command specific help, enter trio -h | --help [command]");
     log("");
 };
 
@@ -57,7 +57,7 @@ const commandSpecificHelp = (command) => {
         log("       trio-build - Builds your site.");
         log("");
         log("SYNOPSIS");
-        log("       trio build <options>");
+        log("       trio build [options]");
         log("");
         log("       alias: trio b");
         log("");
@@ -78,7 +78,7 @@ const commandSpecificHelp = (command) => {
         log("       In the third form, it builds your entire site any time a change is made to");
         log("       a file in the source folder.");
         log("");
-        log("       In the fourth form, it incrementally builds your site any time a chage");
+        log("       In the fourth form, it incrementally builds your site any time a change");
         log("       is made to a file in the source folder.");
         log("");
         log("       In the fifth form, it builds your entire site any time a change is made to");
@@ -99,24 +99,35 @@ const commandSpecificHelp = (command) => {
         log("");
     } else if (command === "n" || command === "new") {
         log("NAME");
-        log("       trio-new - Create a new empty project.");
+        log("       trio-new - Create a new project.");
         log("");
         log("SYNOPSIS");
-        log("       trio new <path>");
+        log("       trio new [options] [path]");
         log("");
         log("       alias: trio n");
         log("");
         log("DESCRIPTION");
-        log("       This command creates a new empty project in the path folder. This command will");
+        log("       This command creates a new project in the path folder. This command will");
         log("       abort with an error message if the path folder already exists or if path is invalid");
         log("       or the path is omitted.");
+        log("");
+        log("           trio new [path]");
+        log("           trio new [-s | --scaffold] [path]");
+        log("");
+        log("       In the first form, it creates a new bare project in the path folder.");
+        log("");
+        log("       In the second form, it creates a new project with scaffolding in the path folder.");
+        log("");
+        log("OPTIONS");
+        log("       -s | --scaffold");
+        log("           Creates a new project with scaffolding.");
         log("");
     } else if (command === "r" || command === "release") {
         log("NAME");
         log("       trio-release - Builds your site for release.");
         log("");
         log("SYNOPSIS");
-        log("       trio release");
+        log("       trio release [options]");
         log("");
         log("       alias: r");
         log("");
@@ -139,7 +150,7 @@ const commandSpecificHelp = (command) => {
         log("       trio-serve - Serves your site in the default browser.");
         log("");
         log("SYNOPSIS");
-        log("       trio serve");
+        log("       trio serve [options]");
         log("");
         log("       alias: s");
         log("");
@@ -167,11 +178,20 @@ const commandSpecificHelp = (command) => {
  */
 
 const newCommandParams = {
-    opts: [],
-    validate: ({ commands }) => commands.length === 2,
-    valid: ({ commands }) => {
+    opts: ["-s", "--scaffold"],
+    validate: function ({ commands, options }) {
+        // commands.length === 2 && options.length <= 1,
+        if (commands.length > 2 || options.length > 1) {
+            return false;
+        }
+        if (options.length > 0 && !options.every(opt => this.opts.includes(opt))) {
+            return false;
+        }
+        return true;
+    },
+    valid: ({ commands, options }) => {
         const createNewProject = require("../lib/tasks/create-new-project");
-        createNewProject(commands[1]);
+        createNewProject(commands[1], options);
     },
     invalid: () => generalHelp()
 };

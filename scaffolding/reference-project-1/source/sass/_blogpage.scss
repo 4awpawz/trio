@@ -1,0 +1,46 @@
+.blog {
+    &__container {
+        width: $blog-container-width;
+    }
+
+    &__articles {
+
+        &-list {
+            list-style: none;
+            margin: 3rem 0 2rem 0;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            &-item {
+                margin-bottom: 3rem;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+    }
+
+    &__article {
+        &-title {
+            margin-top: 1rem;
+            font-size: 2.5rem;
+        }
+
+        &-link {
+            color: inherit;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &-date {
+            font-size: 1.5rem;
+        }
+    }
+}

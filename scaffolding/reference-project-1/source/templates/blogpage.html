@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title data-trio-callback="setBlogPageDocTitle">Document</title>
+    <link data-trio-link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <header data-trio-include="header.html" data-trio-callback="header"
+    class="header header--no-bottom-margin"></header>
+    <main class="blog">
+        <section class="banner">
+            <p class="banner__text">Banner</p>
+        </section>
+        <section class="container blog__container blog__articles">
+            <ul data-trio-callback="blogPage" class="blog__articles-list"></ul>
+        </section>
+        <section class="container blog__container categories">
+            <h2 class="categories__title">Categories</h2>
+            <ul data-trio-callback="categoriesList" class="categories__list"></ul>
+        </section>
+        <section class="container blog__container archive-link-container">
+            <a class="archive-link" href="/blog/archive">Archive</a>
+        </section>
+        <section data-trio-callback="blogNavigator" class="container blog__container navigator"></section>
+    </main>
+    <footer data-trio-include="footer.html"></footer>
+</body>
+</html>

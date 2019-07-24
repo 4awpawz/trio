@@ -1,0 +1,20 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    padding: .5rem 0;
+    background-color: $default-footer-bg-color;
+    font-size: 1.2rem;
+
+    &__container {
+        text-align: center;
+    }
+
+    &__copy {
+        max-width: 100%;
+        color: $default-footer-text-color;
+        font-size: .8rem;
+    }
+}

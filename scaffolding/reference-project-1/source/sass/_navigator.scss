@@ -1,0 +1,32 @@
+.navigator {
+    display: flex;
+    width: 100%;
+    margin-top: 4rem;
+
+    %nav {
+        flex: 50%;
+        text-align: center;
+        font-size: 1.3rem;
+        padding: 1rem 0;
+        border: 1px solid #eee;
+        border-radius: $border-radius;
+        background-color: #fff;
+    }
+
+    &__older, &__newer {
+        @extend %nav;
+        text-decoration: none;
+        color: #00f;
+
+        &:hover {
+            background-color: #00f;
+            color: #fff;
+        }
+    }
+
+    &__empty {
+        @extend %nav;
+        color: rgba(#00f, .4);
+        cursor: default;
+    }
+}

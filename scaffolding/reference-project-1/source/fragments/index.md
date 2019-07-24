@@ -1,0 +1,17 @@
+<!--
+template: index.html
+title: "| Welcome"
+appendToTarget: true
+activeHeaderItem: 1
+-->
+
+<section class="homepage">
+
+<h1 data-trio-callback="getBrand" class="homepage__title"></h1>
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consectetur lorem donec massa sapien. Sed egestas egestas fringilla phasellus faucibus. Pellentesque massa placerat duis ultricies lacus sed turpis tincidunt id.
+
+Dolor morbi non arcu risus quis varius. Tincidunt praesent semper feugiat nibh sed. Pharetra diam sit amet nisl suscipit adipiscing bibendum est. Consequat mauris nunc congue nisi vitae suscipit tellus mauris. In fermentum posuere urna nec. At risus viverra adipiscing at in tellus integer feugiat.
+
+Phasellus vestibulum lorem sed risus ultricies tristique nulla. Sagittis orci a scelerisque purus semper eget duis at tellus. Pellentesque elit eget gravida cum sociis. Nisl purus in mollis nunc sed id.
+</section>
