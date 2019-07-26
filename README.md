@@ -8,13 +8,21 @@ Trio's unique approach to extending your pages with dynamic content using its ta
 
 ### v1
 
-https://gettriossg.com
+https://gettriossg.com/docs/v1
 
 ### Prior to v1
 
 <mark>Please note that earlier versions are no longer supported.</mark>
 
 ## Changelog
+
+### v1.0.0 (IKIGAI)
+
+This marks the first stable release of v1.0.0. I'm so excited and I hope you all are too. 
+
+#### Highlights!
+
+* Project scaffolding (<a href="https://github.com/4awpawz/trio/issues/80">issue #80</a>) is now supported as an option (i.e. `-s` | `--scaffold`) when creating a new project from the command line (e.g. `$ trio new -s path/to/new/project`).
 
 ### v1.0.0-rc.6 (IKIGAI)
 
