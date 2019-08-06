@@ -16,6 +16,16 @@ https://gettriossg.com/docs/v1
 
 ## Changelog
 
+### v1.1.0 (IKIGAI)
+
+#### Highlights!
+
+* Trio now provides more information when it is unable to resolve assets. See issue <a target="_blank" href="https://github.com/4awpawz/trio/issues/83">#83</a> for more information.
+
+#### Bug Fixes
+
+* Fixes issue <a target="_blank" href="https://github.com/4awpawz/trio/issues/82">#82</a>, where integrity checking and dependency resolution failed to account for templates having indirect references to includes, which caused builds to fail during page generation because of missing include files. 
+
 ### v1.0.0 (IKIGAI)
 
 This marks the first stable release of v1.0.0. I'm so excited and I hope you all are too. 
