@@ -16,6 +16,12 @@ https://gettriossg.com/docs/v1
 
 ## Changelog
 
+### v1.1.1 (IKIGAI)
+
+#### Bug Fixes
+
+* Addresses issue <a href="https://github.com/4awpawz/trio/issues/84">#84</a>, where stats for JSON data files and modules indicate they have dependencies to callbacks even when those callbacks no longer declare them as internal dependencies.
+
 ### v1.1.0 (IKIGAI)
 
 #### Highlights!
@@ -24,7 +30,7 @@ https://gettriossg.com/docs/v1
 
 #### Bug Fixes
 
-* Fixes issue <a target="_blank" href="https://github.com/4awpawz/trio/issues/82">#82</a>, where integrity checking and dependency resolution failed to account for templates having indirect references to includes, which caused builds to fail during page generation because of missing include files. 
+* Addresses issue <a target="_blank" href="https://github.com/4awpawz/trio/issues/82">#82</a>, where integrity checking and dependency resolution failed to account for templates having indirect references to includes, which caused builds to fail during page generation because of missing include files. 
 
 ### v1.0.0 (IKIGAI)
 
