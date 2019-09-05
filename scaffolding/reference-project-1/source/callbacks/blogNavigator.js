@@ -1,31 +1,26 @@
-/*
-dataDependencies: blog
-*/
 module.exports = ({ $tag, asset, site }) => {
-    const totalArticles = site.articlesCatalog.length;
-    const articlesPerPage = site.dataCatalog.blog.articlesPerPage;
-    let totalPages = parseInt((totalArticles / articlesPerPage).toString(), 10);
-    totalPages = totalArticles % articlesPerPage === 0 ? totalPages : totalPages + 1;
-    const index = asset.matter.data.blogPageIndex;
-    const newer = index - 1;
-    const older = index + 1;
+    let totalPages = asset.collection.totalItems;
+    const index = asset.collection.index;
+    const blogFolderName = site.userConfig.blogFolderName;
 
-    if (older > totalPages) {
+    // older}
+    if (index === totalPages - 1) {
         $tag.append(/* html */`
-                <span class="navigator__empty">Older</span>
-            `);
+            <span class="navigator__empty">Older</span>
+        `);
     } else {
         $tag.append(/* html */`
-            <a class="navigator__newer" href="/blog/page${index + 1}">Older</a>
+            <a class="navigator__older" href="/${blogFolderName}/page${index + 2}">Older</a>
         `);
     }
-    if (newer === 0) {
+    // newer
+    if (index === 0) {
         $tag.append(/* html */`
-            <span class="navigator__empty">Newer</span>
+                <span class="navigator__empty">Newer</span>
         `);
     } else {
         $tag.append(/* html */`
-            <a class="navigator__newer" href="${newer === 1 ? "/blog" : `/blog/page${index - 1}`}">Newer</a>
+            <a class="navigator__newer" href="/${blogFolderName}/${index === 1 ? "" : `page${index}`}">Newer</a>
         `);
     }
 };

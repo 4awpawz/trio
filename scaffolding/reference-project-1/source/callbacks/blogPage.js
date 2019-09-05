@@ -1,13 +1,5 @@
-/*
-dataDependencies: blog
-*/
-module.exports = ({ $tag, asset, site }) => {
-    const articlesPerPage = site.dataCatalog.blog.articlesPerPage;
-    const index = asset.matter.data.blogPageIndex;
-    const start = articlesPerPage * (index - 1);
-    const end = start + articlesPerPage;
-    const articles = site.articlesCatalog.slice(start, end);
-    articles.forEach(article => $tag.append(/* html */`
+module.exports = ({ $tag, asset }) => {
+    asset.collection.data.forEach(article => $tag.append(/* html */`
         <li class="blog__articles-list-item">
             <article class="blog__article">
                 <section class="article-image article-image-container">

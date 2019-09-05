@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-// ToDo: Validate that this is a project before proceeding with any build command the user enters
 /**
  * Command line options are specified following the GNU specification
  * (see http://www.catb.org/~esr/writings/taoup/html/ch10s05.html for details).

@@ -1,5 +1,5 @@
 <!--
-template: index.html
+template: index
 title: "| Welcome"
 appendToTarget: true
 activeHeaderItem: 1

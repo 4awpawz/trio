@@ -1,5 +1,5 @@
 <!--
-template: about.html
+template: about
 title: "| About"
 appendToTarget: true
 activeHeaderItem: 3
