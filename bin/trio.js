@@ -99,6 +99,9 @@ const commandSpecificHelp = (command) => {
         log("       -I");
         log("           Shortcut for -iws.");
         log("");
+        log("       -m");
+        log("           Prints detailed metrics.");
+        log("");
     } else if (command === "n" || command === "new") {
         log("NAME");
         log("       trio-new - Create a new project.");
@@ -146,6 +149,9 @@ const commandSpecificHelp = (command) => {
         log("OPTIONS");
         log("       -b | --cache-bust");
         log("           Applies cache busting to your site.");
+        log("");
+        log("       -m");
+        log("           Prints detailed metrics.");
         log("");
     } else if (command === "s" || command === "serve") {
         log("NAME");
@@ -199,9 +205,9 @@ const newCommandParams = {
 };
 
 const buildCommandParams = {
-    opts: ["-w", "--watch", "-i", "--incremental-build", "-s", "--serve", "-I"],
+    opts: ["-w", "--watch", "-i", "--incremental-build", "-s", "--serve", "-I", "-m"],
     validate: function ({ commands, options }) {
-        if (commands.length > 1 || options.length > 3) {
+        if (commands.length > 1 || options.length > 4) {
             return false;
         }
         if (options.length > 0 && !options.every(opt => this.opts.includes(opt))) {
@@ -213,6 +219,11 @@ const buildCommandParams = {
         const build = require("../index");
         const watch = require("../lib/tasks/file-watcher");
         process.env.TRIO_ENV_buildType = "development";
+        process.env.TRIO_ENV_printMetrics =
+            options.some(opt =>
+                opt === "-m")
+                ? "print-metrics"
+                : "no-print-metrics";
         process.env.TRIO_ENV_serveInBrowser =
             options.some(opt =>
                 opt === "-s" || opt === "--serve" || opt === "-I")
@@ -263,9 +274,9 @@ const serveCommandParams = {
 };
 
 const releaseCommandParams = {
-    opts: ["-b", "--cache-bust"],
+    opts: ["-b", "--cache-bust", "-m"],
     validate: function ({ commands, options }) {
-        if (commands.length > 1 || options.length > 1) {
+        if (commands.length > 1 || options.length > 2) {
             return false;
         }
         if (options.length > 0 && !options.every(opt => this.opts.includes(opt))) {
@@ -278,6 +289,11 @@ const releaseCommandParams = {
         process.env.TRIO_ENV_serveInBrowser = "no-serve-in-browser";
         process.env.TRIO_ENV_buildIncrementally = "no-incremental-build";
         process.env.TRIO_ENV_watching = "no-watch";
+        process.env.TRIO_ENV_printMetrics =
+            options.some(opt =>
+                opt === "-m")
+                ? "print-metrics"
+                : "no-print-metrics";
         process.env.TRIO_ENV_cacheBust =
             options.some(opt =>
                 opt === "-b" || opt === "--cache-bust")
