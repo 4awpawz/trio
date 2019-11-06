@@ -96,6 +96,9 @@ const commandSpecificHelp = (command) => {
         log("       -s | --serve");
         log("           Serves the site in the default browser.");
         log("");
+        log("       -I");
+        log("           Shortcut for -iws.");
+        log("");
     } else if (command === "n" || command === "new") {
         log("NAME");
         log("       trio-new - Create a new project.");
@@ -196,7 +199,7 @@ const newCommandParams = {
 };
 
 const buildCommandParams = {
-    opts: ["-w", "--watch", "-i", "--incremental-build", "-s", "--serve"],
+    opts: ["-w", "--watch", "-i", "--incremental-build", "-s", "--serve", "-I"],
     validate: function ({ commands, options }) {
         if (commands.length > 1 || options.length > 3) {
             return false;
@@ -212,17 +215,17 @@ const buildCommandParams = {
         process.env.TRIO_ENV_buildType = "development";
         process.env.TRIO_ENV_serveInBrowser =
             options.some(opt =>
-                opt === "-s" || opt === "--serve")
+                opt === "-s" || opt === "--serve" || opt === "-I")
                 ? "serve-in-browser"
                 : "no-serve-in-browser";
         process.env.TRIO_ENV_buildIncrementally =
             options.some(opt =>
-                opt === "-i" || opt === "--incremental-build")
+                opt === "-i" || opt === "--incremental-build" || opt === "-I")
                 ? "incremental-build"
                 : "no-incremental-build";
         process.env.TRIO_ENV_watching =
             options.some(opt =>
-                opt === "-w" || opt === "--watch")
+                opt === "-w" || opt === "--watch" || opt === "-I")
                 ? "watch"
                 : "no-watch";
         await build();
