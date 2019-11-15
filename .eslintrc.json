@@ -22,6 +22,7 @@
         ],
         "no-console": 0,
         "eol-last": "off",
-        "no-mixed-operators": "off"
+        "no-mixed-operators": "off",
+        "no-prototype-builtins": "off"
     }
 }
