@@ -1,20 +1,52 @@
-# Welcome to Trio
+# Trio
 
-Trio is an open source static site generator built with Node. Using its command-line interface, you create new static site projects, and incrementally build and run your sites in the browser.
-
-Trio's unique approach to extending your pages with dynamic content using its tag-based callback mechanism makes it stand out from other static site generators, which rely on either templating engines or frameworks.
+Fast, simple yet powerful JavaScript-driven static site generation.
 
 ## Documentation
 
-### v1
+### v2
 
-https://gettriossg.com/docs/v1
+https://gettriossg.com/docs/v2
 
-### Prior to v1
+### Prior Versions
 
 <mark>Please note that earlier versions are no longer supported.</mark>
 
 ## Changelog
+
+### v2.0.0
+
+#### Highlights!
+
+* Collections!
+* Enhancements To The CLI
+
+#### Other Changes
+
+* Trio no longer appends "-map" to the output css map file name. This was cruft left over from when Buster was still appending its hash to file names, which it no longer does as it now prepends the file name with the hash.
+
+* The trio.manifest.json file is no longer compressed.
+
+* You are no longer required to include the .html file extension in the fragment's front matter template property.
+
+#### Changes To gettriossg.com
+
+There's a new home page, which more succinctly expresses what Trio is all about, and the documentation has received numerous corrections, and enhancements to make it more accurate and easier to read.
+
+#### Upgrading From v1 to v2
+
+The schema for the cache has changed for v2.0.0, and is incompatible with prior versions. Therefore, if you are upgrading your projects from v1 to v2, you will have to regenerate your project's cache, which you can do by running the following build command in the terminal:
+
+```shell
+$ trio build | b
+```
+
+#### Bug Fixes
+
+* Fixed <a href="https://github.com/4awpawz/trio/issues/88">#88</a> - excerpts in markdown fragments aren't being converted to HTML.
+
+* Fixed <a href="https://github.com/4awpawz/trio/issues/87">#87</a> - css source maps are being generated incorrectly.
+
 
 ### v1.1.1 (IKIGAI)
 
@@ -30,11 +62,11 @@ https://gettriossg.com/docs/v1
 
 #### Bug Fixes
 
-* Addresses issue <a target="_blank" href="https://github.com/4awpawz/trio/issues/82">#82</a>, where integrity checking and dependency resolution failed to account for templates having indirect references to includes, which caused builds to fail during page generation because of missing include files. 
+* Addresses issue <a target="_blank" href="https://github.com/4awpawz/trio/issues/82">#82</a>, where integrity checking and dependency resolution failed to account for templates having indirect references to includes, which caused builds to fail during page generation because of missing include files.
 
 ### v1.0.0 (IKIGAI)
 
-This marks the first stable release of v1.0.0. I'm so excited and I hope you all are too. 
+This marks the first stable release of v1.0.0. I'm so excited and I hope you all are too.
 
 #### Highlights!
 
@@ -63,7 +95,7 @@ This marks the first stable release of v1.0.0. I'm so excited and I hope you all
 * Breaking Change - Trio no longer generates a unique `id` property for fragments due to the expense in terms of the development time required to maintain their integrity during incremental builds. In its place, users should now use the fragment's `url` property, which is intrinsically always unique.
 
 * Breaking Change - Callback argument `$` has been renamed to `$page` for clarity and consistency.
- 
+
 ### v1.0.0-rc.4 (IKIGAI)
 
 #### Bug Fixes
