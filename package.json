@@ -54,10 +54,10 @@
     "fs-extra": "^8.1.0",
     "glob": "^7.1.5",
     "gray-matter": "^4.0.2",
+    "import-fresh": "^3.2.1",
     "js-beautify": "^1.10.2",
     "marked": "^0.7.0",
     "node-sass": "^4.13.0",
-    "postcss": "^7.0.21",
-    "require-uncached": "^2.0.0"
+    "postcss": "^7.0.21"
   }
 }
