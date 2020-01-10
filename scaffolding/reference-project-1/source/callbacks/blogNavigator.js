@@ -1,9 +1,9 @@
 module.exports = ({ $tag, asset, site }) => {
-    let totalPages = asset.collection.totalItems;
+    const totalPages = asset.collection.totalItems;
     const index = asset.collection.index;
     const blogFolderName = site.userConfig.blogFolderName;
 
-    // older}
+    // older
     if (index === totalPages - 1) {
         $tag.append(/* html */`
             <span class="navigator__empty">Older</span>

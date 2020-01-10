@@ -1,1 +1,7 @@
-{}
+{
+    "blogFolderName": "blog",
+    "baseUrl": "",
+    "permalinks": [
+        "articles: blog"
+    ]
+}
