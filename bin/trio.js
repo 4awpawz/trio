@@ -6,6 +6,8 @@
  */
 
 const log = require("../lib/utils/log");
+const { readCache } = require("../lib/utils/readCache");
+const fileNames = require("../lib/config/fileNames");
 const { version } = require("../package.json");
 
 process.env.TRIO_ENV_version = version;
@@ -32,6 +34,8 @@ process.argv.slice(2)
 const commands = process.argv
     .slice(2)
     .filter(arg => arg[0] !== "-");
+
+const getBaseUrl = () => readCache(fileNames.userConfigFileName).baseUrl || "";
 
 // prints generalized help to stdout
 const generalHelp = () => {
@@ -267,6 +271,11 @@ const serveCommandParams = {
             // BrowserSync will use as the site's base directory
             require("../lib/config");
         }
+        // Since v3 process.env.TRIO_ENV_baseUrl is no longer set by configuration and is
+        // now set directly by userConfig, which is run by the generator which is not run
+        // for the serve command as there is nothing to generate. Therefore, it must
+        // be set here for browsersync to work correctly.
+        process.env.TRIO_ENV_baseUrl = getBaseUrl();
         const browserSync = require("../lib/utils/browserSync");
         browserSync();
     },
