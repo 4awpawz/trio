@@ -14,6 +14,38 @@ https://gettriossg.com/docs/v2
 
 ## Changelog
 
+### v3.0.0
+
+#### Highlights!
+
+* New! Permalinks.
+* New! You now have total control as to how you structure your blogs.
+* New! Incremental Build Now Watches trio.json For Changes.
+* New! Enhanced Collection Dataset Validation.
+
+#### Other Changes
+
+* Improved Consistent Formating For Error And Warning Messages.
+
+#### Major Bug Fixes
+* Fixed <a href="https://github.com/4awpawz/trio/issues/98">#98</a> that prevented you from creating a new project at the command line from within the new project's target folder.
+
+* Fixed <a href="https://github.com/4awpawz/trio/issues/94">#94</a> that would cause incremental build with watch to break when you would rename a fragment. Now, when you rename a fragment, Trio will run a one-off build to insure that its cache acurately reperesents the current state of your project.
+
+* Fixed <a href="https://github.com/4awpawz/trio/issues/93">#93</a> that would sometimes prevent articles from being generated if they didn't declare a category in their front matter.
+
+#### Upgrading From v2 to v3
+
+Whenever you upgrade to a new version of Trio, you should always run a one-off build to insure that Trio's cache is updated to its current expectations:
+
+```shell
+$ trio build | b
+```
+
+#### More Information
+
+For more information regarding this release, please read <a target="_blank" href="https://gettriossg.com/blog/releases/2020/01/21/v3.0.0/">Trio v3.0.0: Permalinkns And Other Goodies</a>
+
 ### v2.0.0
 
 #### Highlights!
@@ -33,6 +65,12 @@ https://gettriossg.com/docs/v2
 
 There's a new home page, which more succinctly expresses what Trio is all about, and the documentation has received numerous corrections, and enhancements to make it more accurate and easier to read.
 
+#### Bug Fixes
+
+* Fixed <a href="https://github.com/4awpawz/trio/issues/88">#88</a> - excerpts in markdown fragments aren't being converted to HTML.
+
+* Fixed <a href="https://github.com/4awpawz/trio/issues/87">#87</a> - css source maps are being generated incorrectly.
+
 #### Upgrading From v1 to v2
 
 The schema for the cache has changed for v2.0.0, and is incompatible with prior versions. Therefore, if you are upgrading your projects from v1 to v2, you will have to regenerate your project's cache, which you can do by running the following build command in the terminal:
@@ -40,13 +78,6 @@ The schema for the cache has changed for v2.0.0, and is incompatible with prior 
 ```shell
 $ trio build | b
 ```
-
-#### Bug Fixes
-
-* Fixed <a href="https://github.com/4awpawz/trio/issues/88">#88</a> - excerpts in markdown fragments aren't being converted to HTML.
-
-* Fixed <a href="https://github.com/4awpawz/trio/issues/87">#87</a> - css source maps are being generated incorrectly.
-
 
 ### v1.1.1 (IKIGAI)
 
