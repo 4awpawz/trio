@@ -30,7 +30,7 @@ https://gettriossg.com/docs/v2
 #### Major Bug Fixes
 * Fixed <a href="https://github.com/4awpawz/trio/issues/98">#98</a> that prevented you from creating a new project at the command line from within the new project's target folder.
 
-* Fixed <a href="https://github.com/4awpawz/trio/issues/94">#94</a> that would cause incremental build with watch to break when you would rename a fragment. Now, when you rename a fragment, Trio will run a one-off build to insure that its cache acurately reperesents the current state of your project.
+* Fixed <a href="https://github.com/4awpawz/trio/issues/94">#94</a> that would cause incremental build with watch to break when you would rename a fragment. Now, when you rename a fragment, Trio will run a one-off build to insure that its cache accurately represents the current state of your project.
 
 * Fixed <a href="https://github.com/4awpawz/trio/issues/93">#93</a> that would sometimes prevent articles from being generated if they didn't declare a category in their front matter.
 
