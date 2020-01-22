@@ -4,9 +4,9 @@ Fast, simple yet powerful JavaScript-driven static site generation.
 
 ## Documentation
 
-### v2
+### v3
 
-https://gettriossg.com/docs/v2
+https://gettriossg.com/docs/v3
 
 ### Prior Versions
 
