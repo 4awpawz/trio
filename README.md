@@ -14,6 +14,17 @@ https://gettriossg.com/docs/v3
 
 ## Changelog
 
+### v3.1.0
+
+#### Highlights!
+
+* New! Preserved include and fragment target tags.
+* New! Auto detection of new version.
+
+#### More Information
+
+For more information regarding this release, please read <a target="_blank" href="https://gettriossg.com/blog/releases/2020/02/11/v3.1.0/">Trio v3.1.0: Improved Developer Experience</a>
+
 ### v3.0.0
 
 #### Highlights!
