@@ -35,29 +35,29 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^6.6.0",
-    "eslint-config-standard": "^14.1.0",
-    "eslint-plugin-import": "^2.18.2",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1"
   },
   "dependencies": {
     "@4awpawz/buster": "^0.3.0",
-    "autoprefixer": "^9.7.0",
+    "autoprefixer": "^9.8.5",
     "browser-sync": "^2.26.7",
-    "caniuse-lite": "^1.0.30001005",
+    "caniuse-lite": "^1.0.30001100",
     "cheerio": "^0.22.0",
-    "chokidar": "^3.2.3",
+    "chokidar": "^3.4.1",
     "cssnano": "^4.1.10",
     "cssnano-preset-default": "^4.0.7",
     "fs-extra": "^8.1.0",
-    "glob": "^7.1.5",
+    "glob": "^7.1.6",
     "gray-matter": "^4.0.2",
     "import-fresh": "^3.2.1",
-    "js-beautify": "^1.10.2",
+    "js-beautify": "^1.11.0",
     "marked": "^0.7.0",
-    "node-sass": "^4.13.0",
-    "postcss": "^7.0.21"
+    "node-sass": "^4.14.1",
+    "postcss": "^7.0.32"
   }
 }
