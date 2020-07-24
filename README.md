@@ -4,7 +4,7 @@ Fast, simple yet powerful JavaScript-driven static site generation.
 
 ## Documentation
 
-### v3
+### v4
 
 https://gettriossg.com/docs/v3
 
@@ -13,6 +13,26 @@ https://gettriossg.com/docs/v3
 <mark>Please note that earlier versions are no longer supported.</mark>
 
 ## Changelog
+
+<mark>Please note that beginning with v4.0.0 changelog entries now only list major highlights.</mark>
+
+### v4.0.0
+
+Please see https://github.com/4awpawz/trio/issues?q=milestone%3Av4.0.0 for details.
+
+#### Highlights!
+
+##### Issue #102: Trio now preserves the relative paths of target child folders when resolving permalinks.
+
+##### Issue #103: Trio now assigns meaningful default values for all the properties in site metadata and trio.manifest.json.
+
+##### Issue #106: Trio projects now include a source/lib folder for modules that are required by tag-based callback modules and collection filter modules.
+
+##### Issue #107: Trio's generated projects now include the empty folders that in previous versions were missing because Git doesn't track empty folders.
+
+##### Issue: #108: Trio no longer generates spurious warning messages when validating permalinks.
+
+##### Issue: #109: Trio no longer includes the ESLint configuration package @4awpawz/eslint-config-4awpawzconfig in scaffold projects.
 
 ### v3.1.0
 
