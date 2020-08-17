@@ -16,6 +16,14 @@ https://gettriossg.com/docs/v4
 
 <mark>Please note that beginning with v4.0.0 changelog entries now only list major highlights.</mark>
 
+### v4.1.0
+
+Please see https://github.com/4awpawz/trio/issues?q=milestone%3Av4.1.0 for details.
+
+#### Highlights!
+
+##### Issue #111: Trio now supports callbacks declared on tags that are replaced by include and fragment content.
+
 ### v4.0.0
 
 Please see https://github.com/4awpawz/trio/issues?q=milestone%3Av4.0.0 for details.
