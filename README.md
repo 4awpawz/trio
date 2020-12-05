@@ -16,6 +16,14 @@ https://gettriossg.com/docs/v4
 
 <mark>Please note that beginning with v4.0.0 changelog entries now only list major highlights.</mark>
 
+### v4.2.0
+
+Please see https://github.com/4awpawz/trio/issues?q=milestone%3Av4.2.0 for details.
+
+#### Highlights!
+
+##### Issue #112: Trio now ignores and reports fragments that do not have front matter defined.
+
 ### v4.1.0
 
 Please see https://github.com/4awpawz/trio/issues?q=milestone%3Av4.1.0 for details.
