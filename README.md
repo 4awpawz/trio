@@ -16,6 +16,16 @@ https://gettriossg.com/docs/v4
 
 <mark>Please note that beginning with v4.0.0 changelog entries now only list major highlights.</mark>
 
+### v4.3.0
+
+Please see https://github.com/4awpawz/trio/milestone/23?closed=1 for details.
+
+#### Highlights!
+
+##### Issue #116: The fragment front matter _title_ property now defaults to _Document_.
+
+##### Issue #117: Trio now does a _one-off build_ whenever a file is added to the project and building incrementally.
+
 ### v4.2.0
 
 Please see https://github.com/4awpawz/trio/issues?q=milestone%3Av4.2.0 for details.
