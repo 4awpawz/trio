@@ -16,6 +16,14 @@ https://gettriossg.com/docs/v4
 
 <mark>Please note that beginning with v4.0.0 changelog entries now only list major highlights.</mark>
 
+### v4.3.1
+
+Please see https://github.com/4awpawz/trio/milestone/24?closed=1 for details.
+
+#### Highlights!
+
+##### Issue #119: Treat all fragment file names preceded with an underscore "\_" as a work in progress.
+
 ### v4.3.0
 
 Please see https://github.com/4awpawz/trio/milestone/23?closed=1 for details.
@@ -249,6 +257,6 @@ This marks the first release candidate for Trio v1. The journey from v0.0.6, whi
 
 ## Copyright And License
 
-Code and documentation Copyright &copy;2018 Jeffrey Schwartz All Rights Reserved
+Code and documentation Copyright &copy;2018-2021 Jeffrey Schwartz All Rights Reserved
 
 Code licensed <a target="_blank" href="https://github.com/4awpawz/trio/blob/master/LICENSE">MIT</a>, docs <a target="_blank" href="https://creativecommons.org/licenses/by/3.0/">CC By 3.0</a>.
