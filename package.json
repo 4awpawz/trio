@@ -37,27 +37,27 @@
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",
-    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1"
+    "eslint-plugin-standard": "^4.1.0"
   },
   "dependencies": {
     "@4awpawz/buster": "^0.3.1",
-    "autoprefixer": "^9.8.5",
-    "browser-sync": "^2.26.10",
-    "caniuse-lite": "^1.0.30001102",
+    "autoprefixer": "^9.8.6",
+    "browser-sync": "^2.26.13",
+    "caniuse-lite": "^1.0.30001179",
     "cheerio": "^0.22.0",
-    "chokidar": "^3.4.1",
+    "chokidar": "^3.5.1",
     "cssnano": "^4.1.10",
     "cssnano-preset-default": "^4.0.7",
     "fs-extra": "^8.1.0",
     "glob": "^7.1.6",
     "gray-matter": "^4.0.2",
-    "import-fresh": "^3.2.1",
-    "js-beautify": "^1.11.0",
+    "import-fresh": "^3.3.0",
+    "js-beautify": "^1.13.4",
     "marked": "^0.7.0",
-    "postcss": "^7.0.32",
+    "postcss": "^7.0.35",
     "sass": "^1.32.5"
   }
 }
