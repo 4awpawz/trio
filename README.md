@@ -4,9 +4,9 @@ Fast, simple yet powerful JavaScript-driven static site generation.
 
 ## Documentation
 
-### v4
+### v5
 
-https://gettriossg.com/docs/v4
+https://gettriossg.com/docs/v5
 
 ### Prior Versions
 
@@ -15,6 +15,16 @@ https://gettriossg.com/docs/v4
 ## Changelog
 
 <mark>Please note that beginning with v4.0.0 changelog entries now only list major highlights.</mark>
+
+### v5.0.0
+
+Please see https://github.com/4awpawz/trio/milestone/25?closed=1 for details.
+
+#### Highlights!
+
+##### Issue #120: Replace Node Sass with Dart Sass.
+
+##### Issue #121: Update all packages and address vulnerabilities.
 
 ### v4.3.1
 
