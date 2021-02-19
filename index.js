@@ -1,3 +1,5 @@
+"use strict";
+
 const generate = require("./lib/generator");
 const { log } = require("./lib/utils");
 

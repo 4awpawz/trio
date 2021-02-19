@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-
 /**
  * Command line options are specified following the GNU specification
  * (see http://www.catb.org/~esr/writings/taoup/html/ch10s05.html for details).
  */
+
+"use strict";
 
 const log = require("../lib/utils/log");
 const { readCache } = require("../lib/utils/readCache");
