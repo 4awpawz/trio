@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+"use strict";
 /**
  * Command line options are specified following the GNU specification
  * (see http://www.catb.org/~esr/writings/taoup/html/ch10s05.html for details).
