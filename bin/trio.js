@@ -47,7 +47,7 @@ const generalHelp = () => {
     log("    -h | --help (this help)");
     log("");
     log("where [command] is one of:");
-    log("    n, new, b, build, r, release, s, serve");
+    log("    n, new, b, build, r, release, B, Bust, s, serve");
     log("");
     log("For command specific help, enter trio -h | --help [command]");
     log("");
@@ -144,18 +144,45 @@ const commandSpecificHelp = (command) => {
         log("       This command builds your site for release targeting the release folder.");
         log("");
         log("           trio release");
-        log("           trio release [-b | --cache-bust]");
         log("");
-        log("       In the first form, it builds your site for release.");
-        log("");
-        log("       In the second form, it builds your site for release with cache busting applied");
+        log("       In the first and only form, it builds your site for release.");
         log("");
         log("OPTIONS");
-        log("       -b | --cache-bust");
-        log("           Applies cache busting to your site.");
-        log("");
         log("       -m");
         log("           Prints detailed metrics.");
+        log("");
+    } else if (command === "c" || command === "cachebust") {
+        log("NAME");
+        log("       trio-cachebust - Cache busts the release build residing in the release folder.");
+        log("");
+        log("SYNOPSIS");
+        log("       trio cachebust [options]");
+        log("");
+        log("       alias: c");
+        log("");
+        log("DESCRIPTION");
+        log("       This command cache busts the release build residing in the release folder.");
+        log("");
+        log("           trio cachebust");
+        log("           trio cachebust [-v | --verbose]");
+        log("           trio cachebust [-m | --manifest]");
+        log("           trio cachebust [-v | --verbose m] [-m | manifest]");
+        log("");
+        log("       In the first form, it cache busts the release build residing in the release folder.");
+        log("       In the second form, it cache busts the release build residing in the release folder");
+        log("       and provides verbose cache busting details.");
+        log("       In the third form, it cache busts the release build residing in the release folder");
+        log("       and provides a manifest.");
+        log("       In the fourth form, it cache busts the release build residing in the release folder");
+        log("       and provides both verbose cache busting details and a manifest.");
+        log("");
+        log("OPTIONS");
+        log("       -v | --verbose");
+        log("           Provides verbose cache busting details.");
+        log("       -m | --manifest");
+        log("           Provides a manifest.");
+        log("       -V");
+        log("           Shortcut for -vm.");
         log("");
     } else if (command === "s" || command === "serve") {
         log("NAME");
@@ -283,9 +310,9 @@ const serveCommandParams = {
 };
 
 const releaseCommandParams = {
-    opts: ["-b", "--cache-bust", "-m"],
+    opts: ["-m"],
     validate: function ({ commands, options }) {
-        if (commands.length > 1 || options.length > 2) {
+        if (commands.length > 1 || options.length > 1) {
             return false;
         }
         if (options.length > 0 && !options.every(opt => this.opts.includes(opt))) {
@@ -303,13 +330,29 @@ const releaseCommandParams = {
                 opt === "-m")
                 ? "print-metrics"
                 : "no-print-metrics";
-        process.env.TRIO_ENV_cacheBust =
-            options.some(opt =>
-                opt === "-b" || opt === "--cache-bust")
-                ? "cache-bust"
-                : "no-cache-bust";
         const build = require("../index");
         await build();
+    },
+    invalid: () => generalHelp()
+};
+
+const cacheBustCommandParams = {
+    opts: ["-v", "--verbose", "-m", "--manifest", "-V"],
+    validate: function ({ commands, options }) {
+        if (commands.length > 1 || options.length > 2) {
+            return false;
+        }
+        if (options.length > 0 && !options.every(opt => this.opts.includes(opt))) {
+            return false;
+        }
+        return true;
+    },
+    valid: async () => {
+        const cacheBust = require("../lib/tasks/cache-bust/cacheBust");
+        await cacheBust(options).catch(e => {
+            console.log("Something went wrong. Try running 'trio -r' first and then try again.");
+            console.log(e);
+        });
     },
     invalid: () => generalHelp()
 };
@@ -323,6 +366,8 @@ validCommandOptions.set("serve", serveCommandParams);
 validCommandOptions.set("s", serveCommandParams);
 validCommandOptions.set("release", releaseCommandParams);
 validCommandOptions.set("r", releaseCommandParams);
+validCommandOptions.set("cachebust", cacheBustCommandParams);
+validCommandOptions.set("c", cacheBustCommandParams);
 
 // command runner
 (async () => {
