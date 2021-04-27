@@ -4,9 +4,9 @@ Fast, simple yet powerful JavaScript-driven static site generation.
 
 ## Documentation
 
-### v5
+### v6
 
-https://gettriossg.com/docs/v5
+https://gettriossg.com/docs/v6
 
 ### Prior Versions
 
@@ -15,6 +15,16 @@ https://gettriossg.com/docs/v5
 ## Changelog
 
 <mark>Please note that beginning with v4.0.0 changelog entries now only list major highlights.</mark>
+
+### v6.0.0
+
+Please see https://github.com/4awpawz/trio/issues?q=is%3Aissue+milestone%3Av6.0.0+is%3Aclosed.
+
+#### Highlights!
+
+##### Issue #124: Remove cache busting from the release CLI command and create its own CLI command cachebust.
+
+##### Issue #123: Add configuration options for css source map generation.
 
 ### v5.0.0
 
