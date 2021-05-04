@@ -16,6 +16,18 @@ https://gettriossg.com/docs/v6
 
 <mark>Please note that beginning with v4.0.0 changelog entries now only list major highlights.</mark>
 
+### v6.0.1
+
+Please see https://github.com/4awpawz/trio/issues?q=is%3Aissue+milestone%3Av6.0.1+is%3Aclosed.
+
+#### Highlights!
+
+##### Issue #127: File watcher (chokidar) should be configured to ignore user defined folders to prevent polluting metadata and unnecessary development builds.
+
+##### Issue #128: lib/generator/getAssets should be configured to ignore user defined folders to prevent polluting metadata.
+
+##### Issue #129: Add "ignore" property to user configuration.
+
 ### v6.0.0
 
 Please see https://github.com/4awpawz/trio/issues?q=is%3Aissue+milestone%3Av6.0.0+is%3Aclosed.
