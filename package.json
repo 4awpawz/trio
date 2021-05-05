@@ -1,6 +1,6 @@
 {
   "name": "@4awpawz/trio",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "description": "Fast, simple yet powerful JavaScript-driven static site generation.",
   "keywords": [
     "static-site-generator",
