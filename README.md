@@ -16,6 +16,14 @@ https://gettriossg.com/docs/v6
 
 <mark>Please note that beginning with v4.0.0 changelog entries now only list major highlights.</mark>
 
+### v6.0.2
+
+Please see https://github.com/4awpawz/trio/issues?q=is%3Aissue+milestone%3Av6.0.2+is%3Aclosed.
+
+#### Highlights!
+
+##### Issue #131: lib/generator/copyOtherFiles isn't checking if the source folders exist before copying files to the destination folders.
+
 ### v6.0.1
 
 Please see https://github.com/4awpawz/trio/issues?q=is%3Aissue+milestone%3Av6.0.1+is%3Aclosed.
