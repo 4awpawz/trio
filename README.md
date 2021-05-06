@@ -16,6 +16,14 @@ https://gettriossg.com/docs/v6
 
 <mark>Please note that beginning with v4.0.0 changelog entries now only list major highlights.</mark>
 
+### v6.0.3
+
+Please see https://github.com/4awpawz/trio/issues?q=is%3Aissue+milestone%3Av6.0.3+is%3Aclosed.
+
+#### Highlights!
+
+##### Issue #133: File watcher not refreshing the browser when ignored file has been added, changed, and deleted.
+
 ### v6.0.2
 
 Please see https://github.com/4awpawz/trio/issues?q=is%3Aissue+milestone%3Av6.0.2+is%3Aclosed.
