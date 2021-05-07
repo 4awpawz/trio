@@ -16,6 +16,18 @@ https://gettriossg.com/docs/v6
 
 <mark>Please note that beginning with v4.0.0 changelog entries now only list major highlights.</mark>
 
+### v6.0.4
+
+Please see https://github.com/4awpawz/trio/issues?q=is%3Aissue+milestone%3Av6.0.4+is%3Aclosed.
+
+#### Highlights!
+
+##### Issue #135: Upgrade Node to v14 LTS and upgrade Trio's dependencies.
+
+##### Issue #134: Module lib/generator/sassRender.js must call toString() when writing the postcssResult.map to a file.
+
+##### Issue #136: A circular dependency discovered in lib/utils/getFileModifiedTime.js after upgrading Node to v14 LTs and Trio's dependencies.
+
 ### v6.0.3
 
 Please see https://github.com/4awpawz/trio/issues?q=is%3Aissue+milestone%3Av6.0.3+is%3Aclosed.
