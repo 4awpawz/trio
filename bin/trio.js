@@ -270,9 +270,12 @@ const buildCommandParams = {
                 opt === "-w" || opt === "--watch" || opt === "-I")
                 ? "watch"
                 : "no-watch";
+        if (process.env.TRIO_ENV_serveInBrowser === "serve-in-browser") {
+            require("../lib/utils/browserSync")();
+        }
         await build();
         if (process.env.TRIO_ENV_watching === "watch") {
-            await watch();
+            watch();
         }
     },
     invalid: () => generalHelp()
@@ -303,8 +306,9 @@ const serveCommandParams = {
         // for the serve command as there is nothing to generate. Therefore, it must
         // be set here for browsersync to work correctly.
         process.env.TRIO_ENV_baseUrl = getBaseUrl();
-        const browserSync = require("../lib/utils/browserSync");
-        browserSync();
+        // const browserSync = require("../lib/utils/browserSync");
+        // browserSync();
+        require("../lib/utils/browserSync")();
     },
     invalid: () => generalHelp()
 };
