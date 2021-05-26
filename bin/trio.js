@@ -219,7 +219,6 @@ const commandSpecificHelp = (command) => {
 const newCommandParams = {
     opts: ["-s", "--scaffold"],
     validate: function ({ commands, options }) {
-        // commands.length === 2 && options.length <= 1,
         if (commands.length > 2 || options.length > 1) {
             return false;
         }
@@ -306,8 +305,6 @@ const serveCommandParams = {
         // for the serve command as there is nothing to generate. Therefore, it must
         // be set here for browsersync to work correctly.
         process.env.TRIO_ENV_baseUrl = getBaseUrl();
-        // const browserSync = require("../lib/utils/browserSync");
-        // browserSync();
         require("../lib/utils/browserSync")();
     },
     invalid: () => generalHelp()

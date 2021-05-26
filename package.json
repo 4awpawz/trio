@@ -57,6 +57,7 @@
     "import-fresh": "^3.3.0",
     "js-beautify": "^1.13.13",
     "marked": "^2.0.3",
+    "portscanner": "^2.2.0",
     "postcss": "^8.2.14",
     "sass": "^1.32.12"
   }
