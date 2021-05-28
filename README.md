@@ -16,15 +16,25 @@ https://gettriossg.com/docs/v6
 
 <mark>Please note that beginning with v4.0.0 changelog entries now only list major highlights.</mark>
 
+### v6.1.0
+
+Please see https://github.com/4awpawz/trio/issues?q=is%3Aissue+milestone%3Av6.1.0+is%3Aclosed.
+
+#### Highlights!
+
+##### Issue #137: Refactor Trio to use BrowserSync's watcher to watch for changes to the public build folder and to respond to "change" events by reloading the browser.
+
+##### Issue #138: Auto increment the port number that BrowserSync uses since BrowserSync no longer does so when the default port number (3000) is being used.
+
 ### v6.0.4
 
 Please see https://github.com/4awpawz/trio/issues?q=is%3Aissue+milestone%3Av6.0.4+is%3Aclosed.
 
 #### Highlights!
 
-##### Issue #135: Upgrade Node to v14 LTS and upgrade Trio's dependencies.
-
 ##### Issue #134: Module lib/generator/sassRender.js must call toString() when writing the postcssResult.map to a file.
+
+##### Issue #135: Upgrade Node to v14 LTS and upgrade Trio's dependencies.
 
 ##### Issue #136: A circular dependency discovered in lib/utils/getFileModifiedTime.js after upgrading Node to v14 LTs and Trio's dependencies.
 
